@@ -7,7 +7,7 @@ require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const routes = require('../routes');
+const routes = require('./routes');
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(bodyParser.json());
 app.use(cors({
