@@ -63,7 +63,7 @@ const SignUpBox = () => {
             return;
         }
 
-        axios.post("http://localhost:3001/check-id-duplicate", nickname)
+        axios.post("http://localhost:3001/check-nickname-duplicate", nickname)
             .then((res) => {
                 if(res.data.duplicated === false) {
                     alert("닉네임이 중복이 됩니다.");
@@ -122,9 +122,12 @@ const SignUpBox = () => {
 
         axios.post("http://localhost:3001/sign-up", user)
             .then((res) => {
-                console.log(res.data.user);
-                sessionStorage.setItem("user",JSON.stringify(res.data.user));
-                navigate('/login');
+                console.log(res.data.isSuccess);
+                if(!res.data.isSuccess) {
+                    navigate('/sign-up');
+                } else {
+                    navigate('/login');
+                }
             });
     }
 
