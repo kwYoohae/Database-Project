@@ -14,3 +14,4 @@ nodemon server.js
 `./server` 에 작성하시면 됩니다. 이곳이 backend 코드입니다.
 
 ### 1주차 구현목록 
+- [참고링크로 이동](https://github.com/kwYoohae/Database-Project/blob/master/docs/README1.md)
