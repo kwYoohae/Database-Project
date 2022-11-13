@@ -133,14 +133,14 @@ const SignUpBox = () => {
 
     return (
         <div className="shadow-2xl" style={{width: "800px", height: "558px"}}>
-            <form className="flex flex-col" onSubmit={onSubmitHandler}>
+            <div className="flex flex-col">
                 <span className={"font-bold text-center mt-8 text-xl"}>회원가입</span>
                 <div className={"flex flex-col mx-auto mt-2"}>
                     <label className={"m-1"}>아이디</label>
                     <div className={"flex flex-row"}>
                         <input name="user_id" onChange={onChangeId} value={user_id}
                                placeholder="아이디를 입력해주세요" className={"w-80 border py-2 pl-2 rounded-xl drop-shadow-lg"}/>
-                        <button type="submit"
+                        <button type="submit" onClick={onClickDuplicateId}
                                 className={"mx-2 bg-emerald-500 py-2 px-2 text-sm text-white rounded-2xl mx-auto drop-shadow-lg"}>아이디 중복확인</button>
                     </div>
                 </div>
@@ -149,7 +149,7 @@ const SignUpBox = () => {
                     <div className={"flex flex-row"}>
                         <input name="nickname" onChange={onChangeNickname} value={nickname}
                                placeholder="닉네임을 입력해주세요" className={"w-80 border py-2 pl-2 rounded-xl drop-shadow-lg"}/>
-                        <button type="submit"
+                        <button type="submit" onClick={onClickDuplicateName}
                                 className={"mx-2 bg-emerald-500 py-2 px-2 text-sm text-white rounded-2xl mx-auto drop-shadow-lg"}>닉네임 중복확인</button>
                     </div>
                 </div>
@@ -168,9 +168,9 @@ const SignUpBox = () => {
                     <input name="age" onChange={onChangeAge} value={age} type="number"
                            placeholder="나이를 입력해주세요" className={"w-80 border py-2 pl-2 mr-32 rounded-xl drop-shadow-lg"}/>
                 </div>
-                <button type="submit"
+                <button type="submit" onClick={onSubmitHandler}
                         className={"mt-5 bg-emerald-500 w-28 py-2 text-white rounded-2xl mx-auto drop-shadow-lg"}>회원가입</button>
-            </form>
+            </div>
         </div>
     )
 }
