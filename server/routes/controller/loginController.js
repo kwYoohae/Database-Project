@@ -18,12 +18,6 @@ exports.login = (req, res, next) =>  {
                 cash: rows[0].cash
             };
             if(param[1] === rows[0].pw) {
-                // req.session.user = user;
-                // req.session.save(error => {
-                //     console.log('나 여기 들어왔어');
-                //     if(error)
-                //         console.log(error);
-                // })
                 res.json({message: 'success', user: user});
             } else {
                 res.json({message: 'fail', user: user});
@@ -47,7 +41,17 @@ exports.loginCheck = (req, res) => {
         if(err)
             console.log(err);
         if(rows.length > 0) {
-            console.log("중복됨");
+            res.json({duplicated: false});
+        } else {
+            res.json({duplicated: true});
+        }
+    })
+}
+exports.nickNameCheck = (req, res) => {
+    db.query('SELECT * FROM registered_user WHERE nickname=?',req.body.nickname, (err, rows) => {
+        if(err)
+            console.log(err);
+        if(rows.length > 0) {
             res.json({duplicated: false});
         } else {
             res.json({duplicated: true});
