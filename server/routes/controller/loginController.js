@@ -42,9 +42,15 @@ exports.logout = (req, res) => {
     }
 }
 exports.loginCheck = (req, res) => {
-    if(req.session.user) {
-        res.send({loggedIn : true, user: req.session.user})
-    }else {
-        res.send({loggedIn: false})
-    }
+    console.log("data :", req.body);
+    db.query('SELECT * FROM registered_user WHERE user_id=?',req.body.user_id, (err, rows) => {
+        if(err)
+            console.log(err);
+        if(rows.length > 0) {
+            console.log("중복됨");
+            res.json({duplicated: false});
+        } else {
+            res.json({duplicated: true});
+        }
+    })
 }
