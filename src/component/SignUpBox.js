@@ -17,6 +17,7 @@ const SignUpBox = () => {
 
     const onChangeId = (e) => {
         setUserId(e.currentTarget.value);
+        setDuplicatedId(false);
         console.log("id : " + user_id);
     }
 
@@ -27,6 +28,7 @@ const SignUpBox = () => {
 
     const onChangeNickname = (e) => {
         setName(e.currentTarget.value);
+        setDuplicatedId(true);
         console.log("nickname : " + nickname);
     }
 
