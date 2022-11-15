@@ -6,5 +6,6 @@ router.post('/login', loginController.login);
 router.post('/logout', loginController.logout);
 router.post('/check-id-duplicate', loginController.loginCheck);
 router.post('/check-nickname-duplicate', loginController.nickNameCheck);
+router.post('/home', loginController.test);
 
 module.exports = router;

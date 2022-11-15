@@ -1,7 +1,7 @@
 const db = require('../../db/config');
 
 exports.test = (req, res) => {
-    res.send('코딩중');
+    console.log(req.body);
 }
 
 exports.login = (req, res, next) =>  {
