@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {Navigate, useNavigate} from "react-router-dom";
+import Header from "../component/Header";
 
 const Home = () => {
 
@@ -18,7 +19,8 @@ const Home = () => {
 
     return (
         <div>
-            <button onClick={onTest}>test</button>
+            <Header/>
+            <button onClick={onTest}>로그아웃</button>
         </div>
     )
 }
