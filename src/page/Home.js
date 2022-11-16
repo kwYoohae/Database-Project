@@ -3,6 +3,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import Header from "../component/Header";
 import TodayStock from "../component/stock/todayStock/TodayStock";
 import ProfitRanking from "../component/stock/profitRanking/ProfitRanking";
+import PortfolioBox from "../component/stock/portfolio/PortfolioBox";
 
 const Home = () => {
 
@@ -43,6 +44,7 @@ const Home = () => {
             <div id="body" className="flex flex-row">
                 <TodayStock todayStockData={user.todayStock}/>
                 <ProfitRanking ranking={user.ranking} />
+                <PortfolioBox portfolio={user.portfolio} />
             </div>
         </div>
     )
