@@ -1,5 +1,5 @@
 import React from "react";
-import LoginBox from "../component/LoginBox";
+import LoginBox from "../component/login/LoginBox";
 
 const Login = () => {
     return(

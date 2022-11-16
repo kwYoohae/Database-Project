@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Navigate, useNavigate} from "react-router-dom";
 import Header from "../component/Header";
-import TodayStock from "../component/TodayStock";
+import TodayStock from "../component/stock/TodayStock";
 
 const Home = () => {
 

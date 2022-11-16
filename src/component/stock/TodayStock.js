@@ -1,5 +1,5 @@
 import React from 'react';
-import StockInfo from "./stock/StockInfo";
+import StockInfo from "./StockInfo";
 const TodayStock = () => {
 
     const user = {

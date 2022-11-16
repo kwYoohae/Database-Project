@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpBox from "../component/SignUpBox";
+import SignUpBox from "../component/sign-up/SignUpBox";
 
 const SignUp = () => {
 
