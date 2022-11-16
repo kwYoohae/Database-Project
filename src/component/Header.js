@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import {useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Header = () => {
 
@@ -11,6 +12,13 @@ const Header = () => {
     const logOut = (e) => {
         sessionStorage.removeItem("user");
         return navigate('/login');
+    }
+
+    const onTest = (e) => {
+        axios.post("http://localhost:3001/home",sessionStorage.getItem("user"))
+            .then((res) => {
+                console.log(res.data);
+            })
     }
 
     useEffect(() => {
@@ -38,7 +46,7 @@ const Header = () => {
             <div className="float-left table mt-4">
                 <div className={"flex-col table-cell"}>
                     <ExitToAppIcon className="text-white ml-20 align-middle" fontSize="large" onClick={logOut} />
-                    <span className="text-2xl ml-3 font-bold align-middle">📈 L2-Cache Finance</span>
+                    <span className="text-2xl ml-3 font-bold align-middle" onClick={onTest}>📈 L2-Cache Finance</span>
                 </div>
             </div>
             <div className="float-right table mt-4">
