@@ -15,7 +15,7 @@ const Header = () => {
     }
 
     const onTest = (e) => {
-        axios.post("http://localhost:3001/home",sessionStorage.getItem("user"))
+        axios.post("http://localhost:3001/home",JSON.stringify(sessionStorage.getItem("user")))
             .then((res) => {
                 console.log(res.data);
             })
