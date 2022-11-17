@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import {useLocation, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from "axios";
 
 const Header = () => {
@@ -51,10 +52,12 @@ const Header = () => {
             </div>
             <div className="float-right table mt-4">
                 <div className={"flex-row table-cell"}>
-                    <span id="home" className="text-2xl font-bold align-middle mx-3">홈화면</span>
-                    <span id="stock" className="text-2xl font-bold align-middle mx-3">주식 구매</span>
-                    <span id="community" className="text-2xl font-bold align-middle mx-3">커뮤니티</span>
-                    <PersonIcon className="align-middle mr-20" fontSize="large" onClick={logOut} />
+                    <span id="home" className="text-2xl font-bold align-middle mx-3"><Link to="/">홈화면</Link></span>
+                    <span id="stock" className="text-2xl font-bold align-middle mx-3"><Link to="/stock">주식 구매</Link></span>
+                    <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/community">커뮤니티</Link></span>
+                    <Link to="/user">
+                        <PersonIcon className="align-middle mr-20" fontSize="large" onClick={logOut} />
+                    </Link>
                 </div>
             </div>
         </div>
