@@ -5,20 +5,22 @@ import TodayStock from "../component/stock/todayStock/TodayStock";
 import ProfitRanking from "../component/stock/profitRanking/ProfitRanking";
 import PortfolioBox from "../component/stock/portfolio/PortfolioBox";
 import SearchBar from "../component/home/SearchBar";
+import MyMoney from "../component/home/MyMoney";
 
 const Home = () => {
 
     const user = {
-        todayStock : [
-            {stockCode:"005930", stockName:"삼성전자", stockPrice:53500, stockProfit:21.7},
-            {stockCode:"001830", stockName:"SK하이닉스", stockPrice:132600, stockProfit:-8.6},
+        userMoney: 1200000,
+        todayStock: [
+            {stockCode: "005930", stockName: "삼성전자", stockPrice: 53500, stockProfit: 21.7},
+            {stockCode: "001830", stockName: "SK하이닉스", stockPrice: 132600, stockProfit: -8.6},
         ],
-        ranking : [
-            "유해찬","찬유해","해찬유","찬찬찬"
+        ranking: [
+            "유해찬", "찬유해", "해찬유", "찬찬찬"
         ],
-        portfolio : {
+        portfolio: {
             totalPrice: 1205000,
-            portfolioDetail:[
+            portfolioDetail: [
                 {stockName: "삼성전자", revenue: 1500000},
                 {stockName: "SK하이닉스", revenue: -300000},
                 {stockName: "셀트리온", revenue: 5000}
@@ -26,15 +28,11 @@ const Home = () => {
         },
     }
 
-    const onTest = (e) => {
-        sessionStorage.removeItem("user");
-    }
-
     const navigate = useNavigate();
 
     useEffect(
-        () =>{
-            if(!sessionStorage.getItem("user"))
+        () => {
+            if (!sessionStorage.getItem("user"))
                 return navigate('/login');
         }, []
     )
@@ -42,11 +40,14 @@ const Home = () => {
     return (
         <div>
             <Header/>
-            <SearchBar/>
-            <div id="body" className="mt-20 flex flex-row">
+            <div className="mt-10 flex justify-center">
+                <SearchBar/>
+                <MyMoney userMoney={user.userMoney}/>
+            </div>
+            <div id="body" className="mt-20 flex flex-row justify-center">
                 <TodayStock todayStockData={user.todayStock}/>
-                <ProfitRanking ranking={user.ranking} />
-                <PortfolioBox portfolio={user.portfolio} />
+                <ProfitRanking ranking={user.ranking}/>
+                <PortfolioBox portfolio={user.portfolio}/>
             </div>
         </div>
     )
