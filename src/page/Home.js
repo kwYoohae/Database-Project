@@ -4,6 +4,7 @@ import Header from "../component/Header";
 import TodayStock from "../component/stock/todayStock/TodayStock";
 import ProfitRanking from "../component/stock/profitRanking/ProfitRanking";
 import PortfolioBox from "../component/stock/portfolio/PortfolioBox";
+import SearchBar from "../component/home/SearchBar";
 
 const Home = () => {
 
@@ -22,7 +23,7 @@ const Home = () => {
                 {stockName: "SK하이닉스", revenue: -300000},
                 {stockName: "셀트리온", revenue: 5000}
             ]
-        }
+        },
     }
 
     const onTest = (e) => {
@@ -41,7 +42,8 @@ const Home = () => {
     return (
         <div>
             <Header/>
-            <div id="body" className="flex flex-row">
+            <SearchBar/>
+            <div id="body" className="mt-20 flex flex-row">
                 <TodayStock todayStockData={user.todayStock}/>
                 <ProfitRanking ranking={user.ranking} />
                 <PortfolioBox portfolio={user.portfolio} />

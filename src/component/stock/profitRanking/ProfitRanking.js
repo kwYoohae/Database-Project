@@ -4,7 +4,7 @@ import UserRank from "./UserRank";
 const ProfitRanking = ({ranking}) => {
 
     return(
-        <div className="mt-40 mr-20 border shadow-2xl drop-shadow-sm" style={{width:"253px", height:"375px"}}>
+        <div className="mr-20 border shadow-2xl drop-shadow-sm" style={{width:"253px", height:"375px"}}>
             <div className="w-full">
                 <div className="mt-2 font-bold text-xl text-center">수익률 랭킹</div>
                 {

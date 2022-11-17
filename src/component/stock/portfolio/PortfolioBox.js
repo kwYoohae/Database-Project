@@ -4,7 +4,7 @@ import PortfolioStock from "./PortfolioStock";
 
 const PortfolioBox = ({portfolio}) => {
     return(
-        <div className="mt-40 border shadow-2xl drop-shadow-sm overflow-y-scroll" style={{width:"390px", height:"375px"}}>
+        <div className="border shadow-2xl drop-shadow-sm overflow-y-scroll" style={{width:"390px", height:"375px"}}>
             <div className="w-full">
                 <div className="mt-2 font-bold text-xl text-center">내 포트폴리오</div>
                 {

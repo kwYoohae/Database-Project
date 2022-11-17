@@ -3,7 +3,7 @@ import StockInfo from "./StockInfo";
 const TodayStock = ({todayStockData}) => {
 
     return (
-        <div className="border mt-40 mx-20 shadow-2xl drop-shadow-sm" style={{width: "663px", height: "375px"}}>
+        <div className="border mx-20 shadow-2xl drop-shadow-sm" style={{width: "663px", height: "375px"}}>
             <table className="w-full border-spacing-0.5">
                 <tr>
                     <th colSpan="4" className=" border-b pt-2 pl-2 text-left text-xl">오늘의 주식</th>
