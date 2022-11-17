@@ -10,9 +10,9 @@ const TodayStock = ({todayStockData}) => {
                 </tr>
                 <tbody>
                 {
-                    todayStockData.isEmpty ? <div>정보가 없습니다.</div> :
-                        todayStockData.map((data) => {
-                            return (<StockInfo stockCode={data.code} stockName={data.name} stockPrice={data.price} stockProfit={Math.round(data.profit * 100) / 100} />)
+                    todayStockData.length === 0 ? <div>정보가 없습니다.</div> :
+                        todayStockData.map((data, index) => {
+                            return (<StockInfo key={index} stockCode={data.code} stockName={data.name} stockPrice={data.price} stockProfit={Math.round(data.profit * 100) / 100} />)
                         })
                 }
                 </tbody>

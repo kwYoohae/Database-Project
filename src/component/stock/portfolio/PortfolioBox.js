@@ -8,12 +8,12 @@ const PortfolioBox = ({portfolio, portfolioValue}) => {
             <div className="w-full">
                 <div className="mt-2 font-bold text-xl text-center">내 포트폴리오</div>
                 {
-                    !portfolio ? <div>데이터가 존재하지 않습니다.</div> :
+                    portfolio.length === 0 ? <div>데이터가 존재하지 않습니다.</div> :
                         portfolio.map((data) => {
                             return(<PortfolioStock data={data}/>);
                         })
                 }
-                <div className="ml-5 font-bold text-xl">총 금액 : {portfolioValue.toLocaleString("ko-KR")}</div>
+                <div className="ml-5 font-bold text-xl">총 금액 : {!portfolioValue ? 0 : portfolioValue.toLocaleString("ko-KR")}</div>
             </div>
         </div>
     )
