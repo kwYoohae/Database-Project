@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const loginController = require('./controller/loginController');
 const HomeController = require('./controller/HomeController');
+const StockController = require('./controller/StockController');
 
 router.get('/', loginController.test);
 router.post('/login', loginController.login);
@@ -10,4 +11,5 @@ router.post('/check-nickname-duplicate', loginController.nickNameCheck);
 
 router.post('/home', HomeController.home);
 
+router.post('/stock', StockController.pageIn);
 module.exports = router;
