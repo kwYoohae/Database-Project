@@ -5,14 +5,13 @@ import Header from "../component/Header";
 import SearchBar from "../component/home/SearchBar";
 import MyMoney from "../component/home/MyMoney";
 import ChartBox from "../component/stock/ChartBox";
+import TradingSystem from "../component/stock/TradingSystem";
 
 const Stock = () => {
     const navigate = useNavigate();
     const [data, setData] = useState(undefined);
     const [stockName, setName] = useState("삼성전자");
     const [chartData, setChartData] = useState([]);
-    const [minChart, setMin] = useState(0);
-    const [maxChart, setMax] = useState(0);
     const [money, setMoney] = useState(0);
 
     useEffect(() => {
@@ -27,21 +26,13 @@ const Stock = () => {
                 setChartData([]);
 
                 let temp = [];
-                setMin(res.data.sharePrice.share_price);
-                setMax(res.data.sharePrice.share_price);
-
                 res.data.sharePrice.map((dayData) => {
                     temp.push({
                         name: dayData.date,
                         주가: dayData.share_price
                     })
-                    if (dayData.share_price > maxChart)
-                        setMax(dayData.share_price);
-                    if (dayData.share_price < minChart)
-                        setMin(dayData.share_price);
                 });
                 setChartData(temp);
-                console.log(temp);
             }).catch((error) => {
             console.log(error);
         });

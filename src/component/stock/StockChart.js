@@ -26,7 +26,7 @@ const StockChart = ({data}) => {
             >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name"/>
-                <YAxis type="number" domain={['dataMin', 'dataMax']} unit="원"/>
+                <YAxis type="number" domain={['dataMin - 5000', 'dataMax + 5000']} unit="원"/>
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="주가" stroke="#059669" />
