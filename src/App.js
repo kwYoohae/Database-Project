@@ -5,6 +5,7 @@ import SignUp from "./page/SignUp";
 import {Route, Routes} from "react-router-dom";
 import NotFound from "./page/NotFound";
 import Home from "./page/Home";
+import Stock from "./page/Stock";
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/sign-up" element={<SignUp/>}/>
                 <Route path="/" element={<Home />}/>
+                <Route path="/stock" element={<Stock />} />
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </div>
