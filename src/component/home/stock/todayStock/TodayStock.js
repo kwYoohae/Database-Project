@@ -1,6 +1,5 @@
 import React from 'react';
 import StockInfo from "./StockInfo";
-import StockProfit from "./StockProfit";
 const TodayStock = ({todayStockData}) => {
 
     return (

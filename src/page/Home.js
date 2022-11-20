@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Header from "../component/Header";
-import TodayStock from "../component/stock/todayStock/TodayStock";
-import ProfitRanking from "../component/stock/profitRanking/ProfitRanking";
-import PortfolioBox from "../component/stock/portfolio/PortfolioBox";
+import TodayStock from "../component/home/stock/todayStock/TodayStock";
+import ProfitRanking from "../component/home/stock/profitRanking/ProfitRanking";
+import PortfolioBox from "../component/home/stock/portfolio/PortfolioBox";
 import SearchBar from "../component/home/SearchBar";
 import MyMoney from "../component/home/MyMoney";
-import NewsBox from "../component/news/NewsBox";
+import NewsBox from "../component/home/news/NewsBox";
 import axios from "axios";
 
 const Home = () => {
 
     const [user, setUser] = useState(undefined);
+    const [money, setMoney] = useState(0);
 
     const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const Home = () => {
         return (<div>
             <div className="mt-10 flex justify-center">
                 <SearchBar/>
-                <MyMoney userMoney={user.holdingStockValue.value}/>
+                <MyMoney userMoney={money}/>
             </div>
             <div id="body" className="mt-20 flex flex-row justify-center">
                 <TodayStock todayStockData={user.todayStock}/>
@@ -41,6 +42,7 @@ const Home = () => {
             axios.post('http://localhost:3001/home', JSON.parse(sessionStorage.getItem("user")))
                 .then((res) => {;
                     setUser(res.data);
+                    setMoney(JSON.parse(sessionStorage.getItem("user")).cash);
                 }).catch((error) => {console.log(error);})
         }, []
     )
