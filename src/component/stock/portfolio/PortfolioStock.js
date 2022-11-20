@@ -2,11 +2,13 @@ import React from "react";
 
 const PortfolioStock = ({data}) => {
     return(
-        <div className="text-left my-2 ml-4 leading-10 flex-row">
-            <span className="bg-emerald-400 p-2 rounded-xl text-white">{data.stock_name}</span>
-            {data.value >= 0 ? <span className=" ml-4 text-right bg-red-300 text-red-600 p-2 rounded-xl">📈 +{data.value.toLocaleString("ko-KR")}₩</span>
-            : <span className="ml-4 bg-blue-300 text-blue-600 p-2 rounded-xl">📉 {data.value.toLocaleString("ko-KR")}₩</span>}
-        </div>
+        <tr className="m-4">
+            <td className="text-center bg-emerald-400 p-2 m-4 rounded-xl text-white">{data.stock_name}</td>
+            {data.profit >= 0 ? <td className=" m-4 text-sm text-center bg-red-300 text-red-600 p-2 rounded-xl">📈 +{data.profit.toLocaleString("ko-KR")}</td>
+            : <td className="m-4 bg-blue-300 text-sm text-center text-blue-600 p-2 rounded-xl">📉 {data.profit.toLocaleString("ko-KR")}</td>}
+            {data.value >= 0 ? <td className=" m-4 text-sm text-center bg-red-300 text-red-600 p-2 rounded-xl">📈 +{data.value.toLocaleString("ko-KR")}</td>
+                : <td className="m-4 bg-blue-300 text-sm text-center text-blue-600 p-2 rounded-xl">📉 {data.value.toLocaleString("ko-KR")}</td>}
+        </tr>
     )
 }
 
