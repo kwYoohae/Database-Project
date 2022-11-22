@@ -3,7 +3,7 @@ const mysql = require('mysql');
 
 const SQL_MONEY = 'select cash from registered_user where user_id=?;';
 const SQL_STOCK_DAY = 'select date_format(market_date,\'%Y-%m-%d\') as \'market_date\',closing_price from share_price where share_code = ? order by market_date desc limit ?;';
-const SQL_BUY_OR_SELL = 'select date_format(trading_date,\'%Y-%m-%d\') as \'trading_date\', share_code, share_price, share_amount, trading_type from trading_history where user_id = ? order by trading_date asc;';
+const SQL_BUY_OR_SELL = 'select date_format(trading_date,\'%Y-%m-%d\') as \'trading_date\', trading_history.share_code, share_price, share_amount, trading_type, company_name from trading_history, share_code where user_id = ? and trading_history.share_code = share_code.share_code order by trading_date asc;';
 exports.pageIn = (req, res) => {
 
     pool.getConnection((err, conn) => {
@@ -34,6 +34,7 @@ exports.pageIn = (req, res) => {
                     let history = {
                         date: rows[2][i].trading_date,
                         share_code: rows[2][i].share_code,
+                        company_name: rows[2][i].company_name,
                         share_price: rows[2][i].share_price,
                         share_amount: rows[2][i].share_amount,
                         trading_type: rows[2][i].trading_type

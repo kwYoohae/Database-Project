@@ -6,6 +6,7 @@ import SearchBar from "../component/home/SearchBar";
 import MyMoney from "../component/home/MyMoney";
 import ChartBox from "../component/stock/ChartBox";
 import TradingSystem from "../component/stock/TradingSystem";
+import TradingHistoryBox from "../component/stock/tradingHistory/TradingHistoryBox";
 
 const Stock = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Stock = () => {
                 setData(res.data);
                 setMoney(JSON.parse(sessionStorage.getItem("user")).cash);
                 setChartData([]);
-
+                console.log(data.tradingHistory);
                 let temp = [];
                 res.data.sharePrice.map((dayData) => {
                     temp.push({
@@ -42,13 +43,17 @@ const Stock = () => {
         if (data === undefined || data.length === 0) {
             return (<></>);
         }
-        return (<div>
-            <div className="mt-10 flex justify-center">
-                <SearchBar/>
+        return (<div className="flex flex-col">
+            <div className="flex flex-row mx-auto">
+                <SearchBar />
                 <MyMoney userMoney={money}/>
             </div>
-            <div id="body" className="mt-20 flex flex-row justify-center">
+            <div className="mt-10 flex flex-row mx-auto">
                 <ChartBox data={chartData} stockName={stockName}/>
+            </div>
+            <div className="flex flex-row mt-10 mx-auto">
+                <TradingHistoryBox historyData={data.tradingHistory}/>
+                <TradingSystem/>
             </div>
         </div>)
     }

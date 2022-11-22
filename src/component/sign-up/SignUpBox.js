@@ -58,7 +58,7 @@ const SignUpBox = () => {
                     alert("아이디가 중복이 됩니다.");
                 } else {
                     setDuplicatedId(true);
-                    alert("중복되지 않은 아이디 입니다.");
+                    alert("사용이 가능한 아이디입니다.");
                 }
             });
     }
@@ -79,7 +79,7 @@ const SignUpBox = () => {
                     alert("닉네임이 중복이 됩니다.");
                 } else {
                     setDuplicatedId(true);
-                    alert("중복되지 않은 닉네임 입니다.");
+                    alert("사용이 가능한 닉네임입니다.");
                 }
             });
     }

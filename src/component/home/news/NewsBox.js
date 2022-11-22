@@ -3,7 +3,7 @@ import NewsData from "./NewsData";
 
 const NewsBox = ({news}) => {
     return(
-        <div className="shadow-2xl border mt-20 mx-auto overscroll-y-auto" style={{width:"1350px", height:"360px"}}>
+        <div className="shadow-2xl border mt-20 mx-auto overscroll-y-auto" style={{width:"1330px", height:"360px"}}>
             <div className="text-center text-3xl font-bold mt-6">오늘의 뉴스</div>
             <table className="ml-10  text-left border-separate border-spacing-x-8 table-auto">
                 <thead>

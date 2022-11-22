@@ -21,10 +21,6 @@ const Home = () => {
             return (<></>);
         }
         return (<div>
-            <div className="mt-10 flex justify-center">
-                <SearchBar/>
-                <MyMoney userMoney={money}/>
-            </div>
             <div id="body" className="mt-20 flex flex-row justify-center">
                 <TodayStock todayStockData={user.todayStock}/>
                 <ProfitRanking ranking={user.ranking}/>
