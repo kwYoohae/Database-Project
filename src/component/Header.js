@@ -55,7 +55,7 @@ const Header = () => {
                     <span id="home" className="text-2xl font-bold align-middle mx-3"><Link to="/">홈화면</Link></span>
                     <span id="stock" className="text-2xl font-bold align-middle mx-3"><Link to="/stock">주식 구매</Link></span>
                     <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/community">커뮤니티</Link></span>
-                    {JSON.parse(sessionStorage.getItem("user")).user_id === 'admin' ? <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/admin">어드민</Link></span>
+                    {!sessionStorage.getItem("user") ? <></> : JSON.parse(sessionStorage.getItem("user")).user_id === 'admin' ? <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/admin">어드민</Link></span>
                     : <></>}
                     <Link to="/user">
                         <PersonIcon className="align-middle mr-20" fontSize="large" onClick={logOut} />
