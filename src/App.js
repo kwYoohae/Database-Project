@@ -6,6 +6,7 @@ import {Route, Routes} from "react-router-dom";
 import NotFound from "./page/NotFound";
 import Home from "./page/Home";
 import Stock from "./page/Stock";
+import Community from "./page/Community";
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path="/sign-up" element={<SignUp/>}/>
                 <Route path="/" element={<Home />}/>
                 <Route path="/stock" element={<Stock />} />
+                <Route path="/community" element={<Community />} />
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </div>

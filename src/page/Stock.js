@@ -25,7 +25,6 @@ const Stock = () => {
                 setData(res.data);
                 setMoney(JSON.parse(sessionStorage.getItem("user")).cash);
                 setChartData([]);
-                console.log(data.tradingHistory);
                 let temp = [];
                 res.data.sharePrice.map((dayData) => {
                     temp.push({
@@ -33,6 +32,7 @@ const Stock = () => {
                         주가: dayData.share_price
                     })
                 });
+
                 setChartData(temp);
             }).catch((error) => {
             console.log(error);
