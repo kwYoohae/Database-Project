@@ -8,6 +8,7 @@ import Home from "./page/Home";
 import Stock from "./page/Stock";
 import Community from "./page/Community";
 import CommunityWrite from "./page/CommunityWrite";
+import CommunityPost from "./page/CommunityPost";
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
                 <Route path="/" element={<Home />}/>
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/community" element={<Community />} />
+                <Route path="/community/:boardId" element={<CommunityPost/>}/>
                 <Route path="/community/write" element={<CommunityWrite/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

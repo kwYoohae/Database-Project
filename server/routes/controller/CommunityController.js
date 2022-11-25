@@ -44,5 +44,72 @@ exports.write = (req, res, next) => {
             }
             return res.json({success:true});
         })
+        conn.release();
+    })
+}
+
+exports.post = (req, res, next) => {
+    pool.getConnection((err, conn) => {
+        const get_board_sql = 'SELECT board_id, nickname, board.created_at, content, post_like, title, view, board_type FROM board, registered_user WHERE board_id = ? and registered_user.user_id = board.user_id;';
+        const get_comment_sql = 'SELECT comment_id, comment.created_at, content, nickname FROM comment, registered_user WHERE board_id = ? and registered_user.user_id = comment.user_id;';
+        let sql_board = mysql.format(get_board_sql, req.body.board_id);
+        let sql_comment = mysql.format(get_comment_sql, req.body.board_id);
+        conn.query(sql_board + sql_comment, (err, rows) => {
+            let board = [];
+            let comment = [];
+            if (err) {
+                res.json({success:false});
+                console.log(err);
+                throw err;
+            }
+
+            if (rows[0].length > 0) {
+                for (let i = 0; i < rows[0].length; i++) {
+                    let data = {
+                        board_id: rows[0][i].board_id,
+                        nickname: rows[0][i].nickname,
+                        created_at: rows[0][i].created_at,
+                        content: rows[0][i].content,
+                        post_like: rows[0][i].post_like,
+                        title: rows[0][i].title,
+                        view: rows[0][i].view,
+                        board_type: rows[0][i].board_type
+                    }
+                    board.push(data);
+                }
+            }
+
+            if (rows[1].length > 0) {
+                for (let i = 0; i < rows[1].length ; i++) {
+                    let data = {
+                        comment_id : rows[1][i].comment_id,
+                        created_at : rows[1][i].created_at,
+                        content: rows[1][i].content,
+                        nickname: rows[1][i].nickname
+                    }
+                    comment.push(data);
+                }
+            }
+            res.json({success:true, board: board, comment: comment});
+        })
+        conn.release();
+    })
+}
+
+exports.view = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql = 'UPDATE board SET view = view + 1 where board_id = ?;';
+        let update_view = mysql.format(sql, req.params.board_id);
+        console.log("드르와따");
+        conn.query(update_view, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.json({success:false});
+            } else {
+                res.json({success:true});
+            }
+
+            conn.release();
+        })
     })
 }
