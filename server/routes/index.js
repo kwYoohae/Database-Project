@@ -15,4 +15,5 @@ router.post('/home', HomeController.home);
 router.post('/stock', StockController.pageIn);
 
 router.get('/board', CommunityController.wholePost);
+router.post('/write', CommunityController.write);
 module.exports = router;

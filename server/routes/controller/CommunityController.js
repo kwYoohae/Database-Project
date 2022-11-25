@@ -29,3 +29,20 @@ exports.wholePost = (req, res, next) => {
         })
     })
 }
+
+exports.write = (req, res, next) => {
+    pool.getConnection((err, conn) => {
+        const query = 'INSERT INTO board(user_id, created_at, modified_at, content, post_like, title, view, board_type)\n' +
+            'VALUES ( ? , now(), now(), ? , 0, ? , 0, ?);';
+        const params = [req.body.user_id, req.body.content, req.body.title, req.body.board_type];
+        let sqls = mysql.format(query, params);
+        conn.query(sqls, (err, result) => {
+            if (err) {
+                res.json({success:false});
+                console.log(err);
+                throw err;
+            }
+            return res.json({success:true});
+        })
+    })
+}

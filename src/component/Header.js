@@ -36,7 +36,7 @@ const Header = () => {
             home.style.color = "black";
             stock.style.color = "white";
             community.style.color = "black";
-        } else if (location.pathname === '/community') {
+        } else if (location.pathname.includes('/community')) {
             home.style.color = "black";
             stock.style.color = "black";
             community.style.color = "white";
