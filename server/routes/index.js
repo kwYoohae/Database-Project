@@ -18,4 +18,8 @@ router.get('/board', CommunityController.wholePost);
 router.post('/write', CommunityController.write);
 router.post('/post', CommunityController.post);
 router.get('/view/:board_id', CommunityController.view);
+router.post('/comment', CommunityController.comment);
+
+
+
 module.exports = router;

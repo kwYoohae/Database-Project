@@ -16,30 +16,32 @@ const Header = () => {
         return navigate('/login');
     }
 
-    const onTest = (e) => {
-        axios.post("http://localhost:3001/home",JSON.parse(sessionStorage.getItem("user")))
-            .then((res) => {
-                console.log(res.data);
-            })
-    }
-
     useEffect(() => {
         let home = document.getElementById("home");
         let stock = document.getElementById("stock");
         let community = document.getElementById("community");
+        let setting = document.getElementById("setting");
 
         if (location.pathname === '/') {
             home.style.color = "white";
             stock.style.color = "black";
             community.style.color = "black";
+            setting.style.color = "black";
         } else if (location.pathname === '/stock') {
             home.style.color = "black";
             stock.style.color = "white";
             community.style.color = "black";
+            setting.style.color = "black";
         } else if (location.pathname.includes('/community')) {
             home.style.color = "black";
             stock.style.color = "black";
             community.style.color = "white";
+            setting.style.color = "black";
+        } else if (location.pathname.includes('/setting')) {
+            home.style.color = "black";
+            stock.style.color = "black";
+            community.style.color = "black";
+            setting.style.color = "white";
         }
     },[])
 
@@ -48,7 +50,7 @@ const Header = () => {
             <div className="float-left table mt-4">
                 <div className={"flex-col table-cell"}>
                     <ExitToAppIcon className="text-white ml-20 align-middle" fontSize="large" onClick={logOut} />
-                    <span className="text-2xl ml-3 font-bold align-middle" onClick={onTest}>📈 L2-Cache Finance</span>
+                    <Link to="/"><span className="text-2xl ml-3 font-bold align-middle">📈 L2-Cache Finance</span></Link>
                 </div>
             </div>
             <div className="float-right table mt-4">
@@ -58,8 +60,8 @@ const Header = () => {
                     <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/community">커뮤니티</Link></span>
                     {!sessionStorage.getItem("user") ? <></> : JSON.parse(sessionStorage.getItem("user")).user_id === 'admin' ? <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/admin">어드민</Link></span>
                     : <></>}
-                    <Link to="/user">
-                        <PersonIcon className="align-middle mr-20" fontSize="large" onClick={logOut} />
+                    <Link to="/setting">
+                        <PersonIcon id="setting" className="align-middle mr-20" fontSize="large" />
                     </Link>
                 </div>
             </div>

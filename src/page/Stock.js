@@ -15,6 +15,8 @@ const Stock = () => {
     const [chartData, setChartData] = useState([]);
     const [money, setMoney] = useState(0);
 
+    const [search, setSearch] = useState("");
+
     useEffect(() => {
         if (!sessionStorage.getItem("user"))
             navigate("/login");
@@ -45,7 +47,7 @@ const Stock = () => {
         }
         return (<div className="flex flex-col">
             <div className="flex flex-row mx-auto">
-                <SearchBar />
+                <SearchBar setSearch={setSearch}/>
                 <MyMoney userMoney={money}/>
             </div>
             <div className="mt-10 flex flex-row mx-auto">

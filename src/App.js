@@ -9,6 +9,7 @@ import Stock from "./page/Stock";
 import Community from "./page/Community";
 import CommunityWrite from "./page/CommunityWrite";
 import CommunityPost from "./page/CommunityPost";
+import Setting from "./page/Setting";
 
 const App = () => {
 
@@ -22,7 +23,8 @@ const App = () => {
                 <Route path="/community" element={<Community />} />
                 <Route path="/community/:boardId" element={<CommunityPost/>}/>
                 <Route path="/community/write" element={<CommunityWrite/>}/>
-                <Route path="*" element={<NotFound/>}/>
+                <Route path="/setting" element={<Setting/>}/>
+                <Route path="/*" element={<NotFound/>}/>
             </Routes>
         </div>
     )

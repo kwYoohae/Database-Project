@@ -100,8 +100,27 @@ exports.view = (req, res) => {
     pool.getConnection((err, conn) => {
         const sql = 'UPDATE board SET view = view + 1 where board_id = ?;';
         let update_view = mysql.format(sql, req.params.board_id);
-        console.log("드르와따");
         conn.query(update_view, (err, result) => {
+            if (err) {
+                console.log(err);
+                res.json({success:false});
+            } else {
+                res.json({success:true});
+            }
+
+            conn.release();
+        })
+    })
+}
+
+exports.comment = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql = 'INSERT INTO comment(created_at, content, board_id, user_id)\n' +
+            'VALUES (now(), ?, ?, ?);'
+        const param = [req.body.comment, req.body.board_id, req.body.user_id];
+        console.log(param);
+        let insert_comment = mysql.format(sql, param);
+        conn.query(insert_comment, (err, result) => {
             if (err) {
                 console.log(err);
                 res.json({success:false});

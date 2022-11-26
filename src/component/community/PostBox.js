@@ -19,7 +19,7 @@ const PostBox = () => {
              const data = await axios.get('http://localhost:3001/board')
                 .then((res) => {
                     // console.log(res.data);
-                    setPosts(res.data);
+                    setPosts(res.data.reverse());
                     setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost))
                 })
         }
