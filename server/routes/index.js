@@ -25,4 +25,9 @@ router.post('/admin/user', AdminController.user);
 router.delete('/admin/user-delete',AdminController.deleteUser);
 router.post('/admin/user-update', AdminController.updateUser);
 
+router.post('/admin/company', AdminController.company);
+router.delete('/admin/company-delete', AdminController.deleteCompany);
+router.post('/admin/company-update', AdminController.updateCompany);
+router.post('/admin/company-insert', AdminController.insert);
+
 module.exports = router;

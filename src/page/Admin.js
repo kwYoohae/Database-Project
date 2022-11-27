@@ -4,10 +4,12 @@ import {useNavigate} from "react-router-dom";
 import UserInfo from "../component/admin/UserInfo";
 import axios from "axios";
 import UserInfoDetail from "../component/admin/UserInfoDetail";
+import CompanyInfo from "../component/admin/company/CompanyInfo";
 
 const Admin = () => {
 
     const [user, setUser] = useState([]);
+    const [company, setCompany] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,6 +27,11 @@ const Admin = () => {
             .then((res) => {
                 setUser(res.data.user_data)
             })
+
+        axios.post('http://localhost:3001/admin/company', user_id)
+            .then((res) => {
+                setCompany(res.data.company)
+            })
     }, [])
 
     return (
@@ -32,6 +39,7 @@ const Admin = () => {
             <Header/>
             <div className="flex flex-col">
                 <UserInfo user={user}/>
+                <CompanyInfo company={company}/>
             </div>
         </div>
     )
