@@ -7,6 +7,7 @@ const SQL_RANKING = 'select user_id,sum(share_price*share_amount*case when tradi
 const SQL_HOLDING_STOCK = 'select (select market_date from share_price sp order by market_date desc limit 1) as last_date, hs.share_code, hs.share_amount * hs.share_average_price as prev_price, sp.closing_price*hs.share_amount as price, (sp.closing_price*hs.share_amount-hs.share_amount * hs.share_average_price) as profit, sc.company_name as stock_name from share_code as sc, holding_stock hs, share_price sp where hs.user_id=? and hs.share_code=sp.share_code and sp.share_code=sc.share_code and market_date=(select market_date from share_price sp order by market_date desc limit 1);';
 const SQL_HOLDING_STOCK_MONEY = 'select sum(share_amount*share_average_price) as value from holding_stock where user_id=?;';
 const SQL_NEWS = 'select news_date, news_title, news_url from news order by idx desc limit 5;';
+const SQL_FAVORITE = 'SELECT DISTINCT f.share_code, s.company_name, change_profit, closing_price, MAX(market_date) as market_data FROM favorite as f, share_price as p, share_code as s WHERE user_id = ? and favorite = 1 and f.share_code = p.share_code and f.share_code = s.share_code group by share_code;';
 
 
 exports.home = (req, res, next) => {
@@ -18,8 +19,10 @@ exports.home = (req, res, next) => {
         let sql_holding_stock = mysql.format(SQL_HOLDING_STOCK, req.body.user_id);
         let sql_holding_stock_money = mysql.format(SQL_HOLDING_STOCK_MONEY, req.body.user_id);
         let sql_news = SQL_NEWS;
+        let sql_favorite = mysql.format(SQL_FAVORITE, req.body.user_id);
 
         conn.query(sql_portfolio + sql_today_stock + sql_ranking + sql_holding_stock + sql_holding_stock_money + sql_news
+            + sql_favorite
             , (err, result) => {
                 if (err) {
                     console.log(err);
@@ -32,6 +35,7 @@ exports.home = (req, res, next) => {
                 let holdingStock = [];
                 let holdingStockValue = {};
                 let news = [];
+                let favorite = [];
 
                 if (result[0].length > 0) {
                     portfolioValue = {value: result[0][0].value};
@@ -75,7 +79,7 @@ exports.home = (req, res, next) => {
                     holdingStockValue = {value: result[4][0].value};
                 }
 
-                if (result[5].length != 0) {
+                if (result[5].length > 0) {
                     for (var step = 0; step < result[5].length; step++) {
                         var row = {
                             date: result[5][step].news_date,
@@ -85,13 +89,27 @@ exports.home = (req, res, next) => {
                         news.push(row);
                     }
                 }
+
+                if (result[6].length > 0) {
+                    for (let i = 0 ; i < result[6].length; i++) {
+                        let row = {
+                            share_code: result[6][i].share_code,
+                            company_name: result[6][i].company_name,
+                            profit: result[6][i].change_profit,
+                            price: result[6][i].closing_price,
+                            date: result[6][i].market_data
+                        };
+                        favorite.push(row);
+                    }
+                }
                 const out = {
                     portfolioValue: portfolioValue,
                     todayStock: todayStock,
                     ranking: ranking,
                     holdingStock: holdingStock,
                     holdingStockValue: holdingStockValue,
-                    news: news
+                    news: news,
+                    favorite:favorite
                 }
                 console.log(out);
                 res.json(out);

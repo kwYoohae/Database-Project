@@ -3,11 +3,9 @@ import {useNavigate} from "react-router-dom";
 import Header from "../component/Header";
 import TodayStock from "../component/home/stock/todayStock/TodayStock";
 import ProfitRanking from "../component/home/stock/profitRanking/ProfitRanking";
-import PortfolioBox from "../component/home/stock/portfolio/PortfolioBox";
-import SearchBar from "../component/home/SearchBar";
-import MyMoney from "../component/home/MyMoney";
 import NewsBox from "../component/home/news/NewsBox";
 import axios from "axios";
+import FavoriteBox from "../component/home/stock/favorite/FavoriteBox";
 
 const Home = () => {
 
@@ -24,7 +22,8 @@ const Home = () => {
             <div id="body" className="mt-20 flex flex-row justify-center">
                 <TodayStock todayStockData={user.todayStock}/>
                 <ProfitRanking ranking={user.ranking}/>
-                <PortfolioBox portfolio={user.holdingStock} portfolioValue={user.portfolioValue.value}/>
+                <FavoriteBox favoriteStock={user.favorite}/>
+                {/*<PortfolioBox portfolio={user.holdingStock} portfolioValue={user.portfolioValue.value}/>*/}
             </div>
             <NewsBox news={user.news}/>
         </div>)
