@@ -50,7 +50,7 @@ exports.write = (req, res, next) => {
 
 exports.post = (req, res, next) => {
     pool.getConnection((err, conn) => {
-        const get_board_sql = 'SELECT board_id, nickname, board.created_at, content, post_like, title, view, board_type FROM board, registered_user WHERE board_id = ? and registered_user.user_id = board.user_id;';
+        const get_board_sql = 'SELECT registered_user.user_id as id, board_id, nickname, board.created_at, content, post_like, title, view, board_type FROM board, registered_user WHERE board_id = ? and registered_user.user_id = board.user_id;';
         const get_comment_sql = 'SELECT comment_id, comment.created_at, content, nickname FROM comment, registered_user WHERE board_id = ? and registered_user.user_id = comment.user_id;';
         let sql_board = mysql.format(get_board_sql, req.body.board_id);
         let sql_comment = mysql.format(get_comment_sql, req.body.board_id);
@@ -66,6 +66,7 @@ exports.post = (req, res, next) => {
             if (rows[0].length > 0) {
                 for (let i = 0; i < rows[0].length; i++) {
                     let data = {
+                        user_id: rows[0][i].id,
                         board_id: rows[0][i].board_id,
                         nickname: rows[0][i].nickname,
                         created_at: rows[0][i].created_at,
@@ -131,4 +132,21 @@ exports.comment = (req, res) => {
             conn.release();
         })
     })
+}
+
+exports.deletePost = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql1 = 'DELETE FROM comment WHERE board_id = ?;';
+        const sql2 = 'DELETE FROM board WHERE board_id = ?;';
+        const delete_comment_sql = mysql.format(sql1, req.body.board_id);
+        const delete_board_sql = mysql.format(sql2, req.body.board_id);
+        conn.query(delete_comment_sql + delete_board_sql , (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.json({success: false});
+            }
+            res.json({success:true});
+        })
+        conn.release();
+    });
 }

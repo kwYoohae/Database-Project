@@ -53,7 +53,7 @@ const Stock = () => {
             <div className="mt-10 flex flex-row mx-auto">
                 <ChartBox data={chartData} stockName={stockName}/>
             </div>
-            <div className="flex flex-row mt-10 mx-auto">
+            <div className="flex flex-row mt-10 mx-auto mb-20">
                 <TradingHistoryBox historyData={data.tradingHistory}/>
                 <TradingSystem/>
             </div>

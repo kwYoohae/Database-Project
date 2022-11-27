@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Comment from "./Comment";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Delete, Edit} from "@mui/icons-material";
 
 const PostDetail = ({board_id, data}) => {
 
@@ -38,14 +39,35 @@ const PostDetail = ({board_id, data}) => {
             });
     }
 
+    const deletePost = () => {
+        const user_id = JSON.parse(sessionStorage.getItem("user")).user_id;
+        if (user_id === 'admin' || user_id === data.board[0].user_id) {
+            axios.delete('http://localhost:3001/delete-post', {data:{board_id:board_id, user_id:user_id}})
+                .then((res) => {
+                    if (res.data.success === true) {
+                        alert('성공적으로 삭제되었습니다. ')
+                        navigate(-1);
+                    } else {
+                        alert('삭제가 실패했습니다.')
+                    }
+                })
+        } else {
+            alert('작성자만 삭제를 하실 수 있습니다.');
+        }
+    }
+
     return(
-        <div className="border mt-20 shadow-2xl drop-shadow-md rounded-2xl bg-gray-50"
+        <div className="border mt-20 shadow-2xl drop-shadow-md rounded-2xl bg-gray-50 mb-10"
              style={{height: "680px", width: "700px", overflow: "scroll"}}>
             {
                 data === undefined || data.success === false ? <div>정보가 없습니다.</div> :
                    (
                         <div className="ml-10 mr-10" key={data.board[0].board_id}>
-                            <p className="mt-10 text-left text-gray-600">{data.board[0].created_at.substring(0, 10)}</p>
+                            <div className="flex flex-row-reverse mt-5">
+                                <button onClick={deletePost}><Delete className="mx-2"/></button>
+                                <Edit/>
+                            </div>
+                            <p className="mt-5 text-left text-gray-600">{data.board[0].created_at.substring(0, 10)}</p>
                             <p className="mt-2 text-left text-gray-600">📕 {data.board[0].nickname}</p>
                             <p className="text-left text-xl font-bold">{data.board[0].title}</p>
                             <p className="mt-5">

@@ -1,5 +1,5 @@
 import React from "react";
-import PortfolioStock from "../../home/stock/portfolio/PortfolioStock";
+import PortfolioStock from "../portfolio/PortfolioStock";
 import TradingHistory from "./TradingHistory";
 
 const TradingHistoryBox = ({historyData}) => {

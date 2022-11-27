@@ -20,7 +20,7 @@ const CommunityPost = () => {
         axios.post('http://localhost:3001/post',req)
             .then((res) => {
                 if (res.data.success === true) {
-                    // console.log(res.data);
+                    console.log(res.data);
                     setData(res.data);
                     console.log(res.data);
                 } else {
