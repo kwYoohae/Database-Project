@@ -14,6 +14,7 @@ const Stock = () => {
     const [stockName, setName] = useState("삼성전자");
     const [chartData, setChartData] = useState([]);
     const [money, setMoney] = useState(0);
+    const [star, setStar] = useState(false);
 
     const [search, setSearch] = useState("삼성전자");
     const [day, setDay] = useState("7");
@@ -44,6 +45,7 @@ const Stock = () => {
     const searchForDayHandler = (date) => {
         console.log("들어왔심다 : ", date);
         const reqData = {
+            user_id: JSON.parse(sessionStorage.getItem("user")).user_id,
             name: search,
             day: date
         }
@@ -59,6 +61,7 @@ const Stock = () => {
                 } else {
                     setName(res.data.stock_name);
                     setChartData(res.data.chart_data);
+                    setStar(res.data.isFavorite);
                     console.log(chartData);
                 }
             });
@@ -68,7 +71,7 @@ const Stock = () => {
         if (!sessionStorage.getItem("user"))
             navigate("/login");
 
-        axios.post('http://localhost:3001/stock', JSON.parse(sessionStorage.getItem("user")))
+        axios.post('http://localhost:3001/stock', {user_id: JSON.parse(sessionStorage.getItem("user")).user_id, search: search})
             .then((res) => {
                 // console.log(res.data);
                 setData(res.data);
@@ -81,7 +84,7 @@ const Stock = () => {
                         주가: dayData.share_price
                     })
                 });
-
+                setStar(res.data.star);
                 setChartData(temp);
             }).catch((error) => {
             console.log(error);
@@ -98,7 +101,7 @@ const Stock = () => {
                 <MyMoney userMoney={money}/>
             </div>
             <div className="mt-10 flex flex-row mx-auto">
-                <ChartBox data={chartData} stockName={stockName} setDay={setDay} day={day} searchHandler={searchForDayHandler}/>
+                <ChartBox star={star} setStart={setStar} data={chartData} stockName={stockName} setDay={setDay} day={day} searchHandler={searchForDayHandler}/>
             </div>
             <div className="flex flex-row mt-10 mx-auto mb-20">
                 <TradingHistoryBox historyData={data.tradingHistory}/>
