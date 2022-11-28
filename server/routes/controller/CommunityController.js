@@ -169,3 +169,71 @@ exports.update = (req, res) => {
         conn.release();
     })
 }
+
+exports.findLike = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql1 = 'SELECT * FROM favorite_board WHERE board_id = ? and user_id = ?;';
+        const param1 = [req.body.board_id, req.body.user_id];
+        const findFavoriteUser = mysql.format(sql1, param1);
+        let isSuccess = false;
+        conn.query(findFavoriteUser, (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.json({success: false, alreadyFavorite: false});
+            }
+
+            if (rows.length === 0) {
+                isSuccess = true;
+                res.json({success: true, alreadyFavorite: false});
+            } else if (rows.length > 0) {
+                if (rows[0].favorite === 1) {
+                    res.json({success: true, alreadyFavorite: true});
+                } else {
+                    isSuccess = true;
+                    res.json({success: true, alreadyFavorite: false});
+                }
+            } else {
+                res.json({success: false, alreadyFavorite: false});
+            }
+        })
+        conn.release();
+    })
+}
+
+exports.addLike = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql1 = 'INSERT INTO favorite_board(favorite, user_id, board_id) VALUES(1, ?, ?) ON DUPLICATE KEY UPDATE favorite=1;';
+        const sql2 = 'UPDATE board SET post_like = post_like + 1 WHERE board_id = ?;';
+        const addFavoriteTable = mysql.format(sql1, [req.body.user_id, req.body.board_id]);
+        const addBoardTable = mysql.format(sql2, req.body.board_id);
+
+        conn.query(addFavoriteTable + addBoardTable, (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.json({success: false});
+            } else {
+                res.json({success: true});
+            }
+        })
+    })
+}
+
+exports.subLike = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql1 = 'UPDATE favorite_board SET favorite = 0 WHERE user_id = ? and board_id = ?;';
+        const param1 = [req.body.user_id, req.body.board_id]
+        const updateFavoriteBoard = mysql.format(sql1, param1);
+        const sql2 = 'UPDATE board SET post_like = post_like - 1 WHERE board_id = ?;';
+        const updateBoard = mysql.format(sql2, req.body.board_id);
+        conn.query(updateFavoriteBoard + updateBoard, (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.json({success: false});
+            } else {
+                res.json({success:true});
+            }
+        })
+
+        conn.release();
+    })
+}

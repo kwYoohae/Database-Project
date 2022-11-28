@@ -40,6 +40,31 @@ const PostDetail = ({board_id, data}) => {
             });
     }
 
+    const updateLike = () => {
+        const reqData = {
+            user_id: JSON.parse(sessionStorage.getItem("user")).user_id,
+            board_id: board_id
+        }
+
+        axios.post('http://localhost:3001/find-like', reqData)
+            .then((res) => {
+                    console.log(res.data);
+                if (res.data.success === true) {
+                  if (res.data.alreadyFavorite === false) {
+                      axios.post('http://localhost:3001/add-like', reqData)
+                          .then((res) => {
+                              window.location.reload();
+                          })
+                  } else {
+                      axios.post('http://localhost:3001/sub-like', reqData)
+                          .then((res) => {
+                              window.location.reload();
+                          })
+                  }
+                }
+            })
+    }
+
     const updateHandler = () => {
         const url = '/community/update/' + board_id;
         navigate(url);
@@ -79,7 +104,12 @@ const PostDetail = ({board_id, data}) => {
                             <p className="mt-5">
                                 {data.board[0].content}
                             </p>
-                            <input onChange={handlerComment} className="mt-10 border rounded-2xl w-96 py-2 pl-3" placeholder="댓글을 입력해주세요" />
+                            <div className="mt-10">
+                                <button onClick={updateLike}>
+                                    <span cl assName="ml-2 bg-gray-100 drop-shadow-md border rounded-2xl p-2">👍 {data.board[0].post_like}</span>
+                                </button>
+                            </div>
+                            <input onChange={handlerComment} className="mt-5 border rounded-2xl w-96 py-2 pl-3" placeholder="댓글을 입력해주세요" />
                             <button onClick={writeComment} className="ml-5 border py-2 px-5 rounded-2xl bg-emerald-200 font-medium">작성하기</button>
                         </div>
                     )

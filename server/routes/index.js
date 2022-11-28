@@ -23,6 +23,9 @@ router.get('/view/:board_id', CommunityController.view);
 router.post('/comment', CommunityController.comment);
 router.delete('/delete-post',CommunityController.deletePost);
 router.post('/update', CommunityController.update);
+router.post('/find-like',CommunityController.findLike);
+router.post('/add-like',CommunityController.addLike);
+router.post('/sub-like', CommunityController.subLike);
 
 router.post('/admin/user', AdminController.user);
 router.delete('/admin/user-delete',AdminController.deleteUser);
