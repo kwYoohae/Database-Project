@@ -35,8 +35,14 @@ const PostDetail = ({board_id, data}) => {
                    window.location.reload();
                } else {
                    alert('댓글 작성에 실패하셨습니다.');
+                   navigate(-1);
                }
             });
+    }
+
+    const updateHandler = () => {
+        const url = '/community/update/' + board_id;
+        navigate(url);
     }
 
     const deletePost = () => {
@@ -65,7 +71,7 @@ const PostDetail = ({board_id, data}) => {
                         <div className="ml-10 mr-10" key={data.board[0].board_id}>
                             <div className="flex flex-row-reverse mt-5">
                                 <button onClick={deletePost}><Delete className="mx-2"/></button>
-                                <Edit/>
+                                <button onClick={updateHandler}><Edit/></button>
                             </div>
                             <p className="mt-5 text-left text-gray-600">{data.board[0].created_at.substring(0, 10)}</p>
                             <p className="mt-2 text-left text-gray-600">📕 {data.board[0].nickname}</p>

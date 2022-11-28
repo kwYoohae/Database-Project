@@ -21,6 +21,7 @@ router.post('/post', CommunityController.post);
 router.get('/view/:board_id', CommunityController.view);
 router.post('/comment', CommunityController.comment);
 router.delete('/delete-post',CommunityController.deletePost);
+router.post('/update', CommunityController.update);
 
 router.post('/admin/user', AdminController.user);
 router.delete('/admin/user-delete',AdminController.deleteUser);

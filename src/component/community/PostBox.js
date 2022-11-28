@@ -27,7 +27,7 @@ const PostBox = () => {
     }, [indexOfFirstPost, indexOfLastPost, page, currentPosts]);
 
     return(
-        <div className="border shadow-2xl mt-20 ml-20 drop-shadow-md rounded-xl bg-gray-50" style={{height:"680px", width:"700px"}}>
+        <div className="border shadow-2xl mt-20 ml-20 drop-shadow-md rounded-xl bg-gray-50 mb-10" style={{height:"680px", width:"700px"}}>
             <div className="grid grid-cols-9 mt-4">
                 <CategoryBar/>
                 <Link to="/community/write" className="col-start-8 bg-emerald-500 font-bold text-center px-2 py-2 rounded-2xl">글쓰기</Link>

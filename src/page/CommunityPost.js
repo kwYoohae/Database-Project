@@ -15,7 +15,6 @@ const CommunityPost = () => {
             navigate("/login");
         const req = {board_id: parseInt(boardId)};
         const url = 'http://localhost:3001/view/' +boardId;
-        console.log(url);
         axios.get(url);
         axios.post('http://localhost:3001/post',req)
             .then((res) => {

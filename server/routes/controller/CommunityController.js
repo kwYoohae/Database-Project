@@ -150,3 +150,22 @@ exports.deletePost = (req, res) => {
         conn.release();
     });
 }
+
+exports.update = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql1 = 'UPDATE board SET modified_at = now(), content = ?, title = ?, board_type = ? WHERE board_id =?;';
+        const param = [req.body.content, req.body.title, req.body.board_type, req.body.board_id];
+        const update_board = mysql.format(sql1, param);
+
+        conn.query(update_board, (err, rows) =>{
+            if (err) {
+                console.log(err);
+                res.json({success: false});
+            } else {
+                res.json({success: true});
+            }
+        })
+
+        conn.release();
+    })
+}

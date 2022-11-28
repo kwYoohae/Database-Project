@@ -11,6 +11,7 @@ import CommunityWrite from "./page/CommunityWrite";
 import CommunityPost from "./page/CommunityPost";
 import Setting from "./page/Setting";
 import Admin from "./page/Admin";
+import CommunityUpdate from "./page/CommunityUpdate";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
                 <Route path="/" element={<Home />}/>
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/community" element={<Community />} />
+                <Route path="/community/update/:board_id" element={<CommunityUpdate/>}/>
                 <Route path="/community/:boardId" element={<CommunityPost/>}/>
                 <Route path="/community/write" element={<CommunityWrite/>}/>
                 <Route path="/setting" element={<Setting/>}/>
