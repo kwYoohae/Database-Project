@@ -14,6 +14,7 @@ router.post('/check-nickname-duplicate', loginController.nickNameCheck);
 router.post('/home', HomeController.home);
 
 router.post('/stock', StockController.pageIn);
+router.post('/chart', StockController.chart);
 
 router.get('/board', CommunityController.wholePost);
 router.post('/write', CommunityController.write);

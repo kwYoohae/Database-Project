@@ -15,7 +15,54 @@ const Stock = () => {
     const [chartData, setChartData] = useState([]);
     const [money, setMoney] = useState(0);
 
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState("삼성전자");
+    const [day, setDay] = useState("7");
+
+    const searchHandler = (e) => {
+        console.log("들어왔심다 : ", day);
+        const reqData = {
+            name: search,
+            day: day
+        }
+
+        axios.post('http://localhost:3001/chart', reqData)
+            .then((res) => {
+                if (res.data.success === false) {
+                    if (res.data.searchData === true) {
+                        alert('알 수 없는 에러가 발생했습니다.')
+                    } else {
+                        alert('검색하려는 정보가 DB에 없습니다.')
+                    }
+                } else {
+                    setName(res.data.stock_name);
+                    setChartData(res.data.chart_data);
+                    console.log(chartData);
+                }
+            });
+    }
+
+    const searchForDayHandler = (date) => {
+        console.log("들어왔심다 : ", date);
+        const reqData = {
+            name: search,
+            day: date
+        }
+
+        axios.post('http://localhost:3001/chart', reqData)
+            .then((res) => {
+                if (res.data.success === false) {
+                    if (res.data.searchData === true) {
+                        alert('알 수 없는 에러가 발생했습니다.')
+                    } else {
+                        alert('검색하려는 정보가 DB에 없습니다.')
+                    }
+                } else {
+                    setName(res.data.stock_name);
+                    setChartData(res.data.chart_data);
+                    console.log(chartData);
+                }
+            });
+    }
 
     useEffect(() => {
         if (!sessionStorage.getItem("user"))
@@ -47,11 +94,11 @@ const Stock = () => {
         }
         return (<div className="flex flex-col">
             <div className="flex flex-row mx-auto">
-                <SearchBar setSearch={setSearch}/>
+                <SearchBar setSearch={setSearch} searchHandler={searchHandler}/>
                 <MyMoney userMoney={money}/>
             </div>
             <div className="mt-10 flex flex-row mx-auto">
-                <ChartBox data={chartData} stockName={stockName}/>
+                <ChartBox data={chartData} stockName={stockName} setDay={setDay} day={day} searchHandler={searchForDayHandler}/>
             </div>
             <div className="flex flex-row mt-10 mx-auto mb-20">
                 <TradingHistoryBox historyData={data.tradingHistory}/>

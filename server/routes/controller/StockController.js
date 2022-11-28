@@ -3,6 +3,7 @@ const mysql = require('mysql');
 
 const SQL_MONEY = 'select cash from registered_user where user_id=?;';
 const SQL_STOCK_DAY = 'select date_format(market_date,\'%Y-%m-%d\') as \'market_date\',closing_price from share_price where share_code = ? order by market_date desc limit ?;';
+const SQL_STOCK_DAY_FOR_NAME = 'select date_format(market_date,\'%Y-%m-%d\') as \'market_date\',closing_price from share_price, share_code where company_name = ? and share_code.share_code = share_price.share_code order by market_date limit ?;';
 const SQL_BUY_OR_SELL = 'select date_format(trading_date,\'%Y-%m-%d\') as \'trading_date\', trading_history.share_code, share_price, share_amount, trading_type, company_name from trading_history, share_code where user_id = ? and trading_history.share_code = share_code.share_code order by trading_date asc;';
 exports.pageIn = (req, res) => {
 
@@ -52,6 +53,42 @@ exports.pageIn = (req, res) => {
             console.log(out);
             res.json(out);
         })
+        conn.release();
+    })
+}
+
+exports.chart = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const param = [req.body.name, parseInt(req.body.day)];
+        const sql_chart = mysql.format(SQL_STOCK_DAY_FOR_NAME, param);
+
+        conn.query(sql_chart, (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.json({success: false, searchData: false});
+            }
+
+            if (rows.length > 0) {
+                let chartData = [];
+                for (let i = 0 ; i < rows.length; i++) {
+                    const data = {
+                        name: rows[i].market_date,
+                        주가: rows[i].closing_price,
+                    }
+                    chartData.push(data);
+                }
+                const responseData = {
+                    success: true,
+                    searchData: true,
+                    stock_name: req.body.name,
+                    chart_data: chartData
+                };
+                res.json(responseData);
+            } else {
+                res.json({success: false, searchData: false});
+            }
+        })
+
         conn.release();
     })
 }
