@@ -1,5 +1,5 @@
 const pool = require('../../db/config');
-
+const mysql = require('mysql');
 exports.test = (req, res) => {
     console.log(req.body);
 }
@@ -63,6 +63,22 @@ exports.nickNameCheck = async (req, res) => {
                 res.json({duplicated: false});
             } else {
                 res.json({duplicated: true});
+            }
+        })
+        conn.release();
+    })
+}
+
+exports.signUp = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql1 = 'INSERT INTO registered_user(user_id, pw, nickname, age, created_at, cash) VALUES(?,?,?,?,now(),10000000);';
+        const insertSignUp = mysql.format(sql1, [req.body.user_id, req.body.password, req.body.nickname, req.body.age]);
+        conn.query(insertSignUp, (err, rows) =>{
+            if (err) {
+                console.log(err);
+                res.json({success: false});
+            } else {
+                res.json({success: true});
             }
         })
         conn.release();

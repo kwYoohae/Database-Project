@@ -78,7 +78,7 @@ const SignUpBox = () => {
                 if(res.data.duplicated === false) {
                     alert("닉네임이 중복이 됩니다.");
                 } else {
-                    setDuplicatedId(true);
+                    setDuplicatedName(true);
                     alert("사용이 가능한 닉네임입니다.");
                 }
             });
@@ -86,7 +86,8 @@ const SignUpBox = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-
+        console.log('id : ', duplicatedId);
+        console.log('name : ', duplicatedName);
         if(!duplicatedId) {
             alert("아이디 중복확인을 안하셨습니다!");
             return;
@@ -132,8 +133,8 @@ const SignUpBox = () => {
 
         axios.post("http://localhost:3001/sign-up", user)
             .then((res) => {
-                console.log(res.data.isSuccess);
-                if(!res.data.isSuccess) {
+                console.log(res.data.success);
+                if(!res.data.success) {
                     navigate('/sign-up');
                 } else {
                     navigate('/login');
