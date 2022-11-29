@@ -9,8 +9,8 @@ const PortfolioBox = ({portfolio, portfolioValue}) => {
                 <table className="border-separate border-spacing-2">
                     <tr>
                         <th>주식 명</th>
-                        <th>수익률</th>
                         <th>구매 금액</th>
+                        <th>수익률</th>
                     </tr>
                 {
                     portfolio.length === 0 ? <div>데이터가 존재하지 않습니다.</div> :
