@@ -7,6 +7,7 @@ import MyMoney from "../component/home/MyMoney";
 import ChartBox from "../component/stock/ChartBox";
 import TradingSystem from "../component/stock/TradingSystem";
 import TradingHistoryBox from "../component/stock/tradingHistory/TradingHistoryBox";
+import PortfolioBox from "../component/stock/portfolio/PortfolioBox";
 
 const Stock = () => {
     const navigate = useNavigate();
@@ -103,9 +104,12 @@ const Stock = () => {
             <div className="mt-10 flex flex-row mx-auto">
                 <ChartBox star={star} setStart={setStar} data={chartData} stockName={stockName} setDay={setDay} day={day} searchHandler={searchForDayHandler}/>
             </div>
-            <div className="flex flex-row mt-10 mx-auto mb-20">
+            <div className="flex flex-row mt-10 mx-auto">
                 <TradingHistoryBox historyData={data.tradingHistory}/>
                 <TradingSystem/>
+            </div>
+            <div className="flex flex-row mt-10 ml-24 mb-20">
+                <PortfolioBox portfolio={data.holdingStock} portfolioValue={data.holdingStockValue.value}/>
             </div>
         </div>)
     }

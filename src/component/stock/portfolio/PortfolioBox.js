@@ -1,5 +1,4 @@
 import React from "react";
-import UserRank from "../../home/stock/profitRanking/UserRank";
 import PortfolioStock from "./PortfolioStock";
 
 const PortfolioBox = ({portfolio, portfolioValue}) => {
