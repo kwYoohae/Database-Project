@@ -18,6 +18,8 @@ router.post('/stock', StockController.pageIn);
 router.post('/chart', StockController.chart);
 router.post('/add-star', StockController.addStar);
 router.post('/sub-star', StockController.subStar);
+router.post('/buy-stock',StockController.buyStock);
+router.post('/sell-stock', StockController.sellStock);
 
 router.get('/board', CommunityController.wholePost);
 router.post('/write', CommunityController.write);

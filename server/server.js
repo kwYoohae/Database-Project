@@ -7,6 +7,7 @@ require('dotenv').config();
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+
 const routes = require('./routes');
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(bodyParser.json());
@@ -14,10 +15,10 @@ app.use(cors({
     origin: true,
     credentials: true
 }));
-app.use(cookieParser());
+app.use(cookieParser('loginSecret'));
 app.use(
     session({
-        key: "loginData",
+        key: 'loginData',
         secret: 'loginSecret',
         resave: false,
         saveUninitialized: false,

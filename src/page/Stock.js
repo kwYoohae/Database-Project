@@ -37,7 +37,7 @@ const Stock = () => {
                     }
                 } else {
                     setName(res.data.stock_name);
-                    setChartData(res.data.chart_data);
+                    setChartData(res.data.chart_data.reverse());
                     console.log(chartData);
                 }
             });
@@ -61,7 +61,7 @@ const Stock = () => {
                     }
                 } else {
                     setName(res.data.stock_name);
-                    setChartData(res.data.chart_data);
+                    setChartData(res.data.chart_data.reverse());
                     setStar(res.data.isFavorite);
                     console.log(chartData);
                 }
@@ -74,9 +74,8 @@ const Stock = () => {
 
         axios.post('http://localhost:3001/stock', {user_id: JSON.parse(sessionStorage.getItem("user")).user_id, search: search})
             .then((res) => {
-                // console.log(res.data);
                 setData(res.data);
-                setMoney(JSON.parse(sessionStorage.getItem("user")).cash);
+                setMoney(res.data.userCash.cash.cash);
                 setChartData([]);
                 let temp = [];
                 res.data.sharePrice.map((dayData) => {

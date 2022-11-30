@@ -15,7 +15,9 @@ const PortfolioBox = ({portfolio, portfolioValue}) => {
                 {
                     portfolio.length === 0 ? <div>데이터가 존재하지 않습니다.</div> :
                         portfolio.map((data) => {
-                            return(<PortfolioStock data={data}/>);
+                            if (data.value !== 0) {
+                                return(<PortfolioStock data={data}/>);
+                            }
                         })
                 }
                 </table>
