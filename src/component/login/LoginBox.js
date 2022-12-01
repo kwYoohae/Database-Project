@@ -30,9 +30,12 @@ const LoginBox = () => {
 
         axios.post("http://localhost:3001/login", user)
             .then((res) => {
-                console.log(res.data.user);
-                sessionStorage.setItem("user",JSON.stringify(res.data.user));
-                navigate('/');
+                if (res.data.success === false) {
+                    alert('아이디와 비밀번호를 다시 확인해주세요');
+                } else {
+                    sessionStorage.setItem("user",JSON.stringify(res.data.user));
+                    navigate('/');
+                }
             });
     }
 

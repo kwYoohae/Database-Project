@@ -71,9 +71,6 @@ const Header = () => {
                     <span id="community" className="text-2xl font-bold align-middle mx-3"><Link to="/community">커뮤니티</Link></span>
                     {!sessionStorage.getItem("user") ? <></> : JSON.parse(sessionStorage.getItem("user")).user_id === 'admin' ? <span id="admin" className="text-2xl font-bold align-middle mx-3"><Link to="/admin">어드민</Link></span>
                     : <></>}
-                    <Link to="/setting">
-                        <PersonIcon id="setting" className="align-middle mr-20" fontSize="large" />
-                    </Link>
                 </div>
             </div>
         </div>

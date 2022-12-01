@@ -8,7 +8,7 @@ exports.login = async (req, res, next) =>  {
     param = [req.body.user_id, req.body.password];
     console.log("data is : " + param);
     await pool.getConnection((err, conn) => {
-        conn.query('SELECT * FROM registered_user WHERE user_id=?', param[0],(err, rows) => {
+        conn.query('SELECT * FROM registered_user WHERE user_id=? and pw=?', param,(err, rows) => {
             if(err)
                 console.log(err);
             if(rows.length > 0) {
@@ -18,11 +18,9 @@ exports.login = async (req, res, next) =>  {
                     age: rows[0].age,
                     cash: rows[0].cash
                 };
-                if(param[1] === rows[0].pw) {
-                    res.json({message: 'success', user: user});
-                } else {
-                    res.json({message: 'fail', user: user});
-                }
+                res.json({success:true, user: user});
+            } else {
+                res.json({success:false});
             }
         })
         conn.release();
