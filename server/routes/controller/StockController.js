@@ -229,10 +229,10 @@ exports.buyStock = async (req, res) => {
                 const sql_update_history = mysql.format(SQL_NEW_HISTORY_BUY, [req.body.user_id, rows[0].share_code, '매수', rows[0].share_code, req.body.amount]);
                 if (result[0].length > 0) {
                     await connection.query(sql_update_average);
+                    await connection.query(sql_update_holding_stock_number);
                 } else {
                     await connection.query(sql_update_holding_stock_not_exist);
                 }
-                await connection.query(sql_update_holding_stock_number);
                 await connection.query(sql_update_history);
                 console.log('여기까지했다')
                 await connection.commit();
