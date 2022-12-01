@@ -69,6 +69,7 @@ exports.nickNameCheck = async (req, res) => {
 
 exports.signUp = (req, res) => {
     pool.getConnection((err, conn) => {
+        console.log(req.body);
         const sql1 = 'INSERT INTO registered_user(user_id, pw, nickname, age, created_at, cash) VALUES(?,?,?,?,now(),10000000);';
         const insertSignUp = mysql.format(sql1, [req.body.user_id, req.body.password, req.body.nickname, req.body.age]);
         conn.query(insertSignUp, (err, rows) =>{

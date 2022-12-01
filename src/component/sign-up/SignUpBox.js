@@ -131,7 +131,7 @@ const SignUpBox = () => {
             nickname: nickname
         };
 
-        axios.post("http://localhost:3001/sign-up", user)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+"/sign-up", user)
             .then((res) => {
                 console.log(res.data.success);
                 if(!res.data.success) {

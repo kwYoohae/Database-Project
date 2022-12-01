@@ -46,17 +46,17 @@ const PostDetail = ({board_id, data}) => {
             board_id: board_id
         }
 
-        axios.post('http://localhost:3001/find-like', reqData)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/find-like', reqData)
             .then((res) => {
                     console.log(res.data);
                 if (res.data.success === true) {
                   if (res.data.alreadyFavorite === false) {
-                      axios.post('http://localhost:3001/add-like', reqData)
+                      axios.post(process.env.REACT_APP_BACKEND_SERVER+'/add-like', reqData)
                           .then((res) => {
                               window.location.reload();
                           })
                   } else {
-                      axios.post('http://localhost:3001/sub-like', reqData)
+                      axios.post(process.env.REACT_APP_BACKEND_SERVER+'/sub-like', reqData)
                           .then((res) => {
                               window.location.reload();
                           })
@@ -73,7 +73,7 @@ const PostDetail = ({board_id, data}) => {
     const deletePost = () => {
         const user_id = JSON.parse(sessionStorage.getItem("user")).user_id;
         if (user_id === 'admin' || user_id === data.board[0].user_id) {
-            axios.delete('http://localhost:3001/delete-post', {data:{board_id:board_id, user_id:user_id}})
+            axios.delete(process.env.REACT_APP_BACKEND_SERVER+'/delete-post', {data:{board_id:board_id, user_id:user_id}})
                 .then((res) => {
                     if (res.data.success === true) {
                         alert('성공적으로 삭제되었습니다. ')
