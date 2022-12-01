@@ -20,7 +20,7 @@ const TradingSystemBox = () => {
             return;
         }
 
-        if (amount <= 0) {
+        if (amount < 0) {
             alert('매매하려고 하는 수량은 음수가 될 수 없습니다.');
             return;
         }
@@ -57,7 +57,7 @@ const TradingSystemBox = () => {
             return;
         }
 
-        if (amount <= 0) {
+        if (amount < 0) {
             alert('매매하려고 하는 수량은 음수가 될 수 없습니다.');
             return;
         }
@@ -79,10 +79,10 @@ const TradingSystemBox = () => {
                         alert('존재하지 않는 주식입니다. 매매하려고 하는 이름을 다시 확인해주세요');
                     }
                     else if (res.data.msg === "not enough stock") {
-                        alert('보유주식보다 더 큰 주식을 핀매하려 하고 있습니다.');
+                        alert('보유주식보다 더 큰 주식을 판매하려 하고 있습니다.');
                     }
                 } else if (res.data.success === true) {
-                    alert('주식 구매에 성공하셨습니다.');
+                    alert('주식 판매에 성공하셨습니다.');
                     window.location.reload();
                 }
             })

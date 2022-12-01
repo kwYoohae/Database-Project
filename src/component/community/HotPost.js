@@ -36,7 +36,7 @@ const HotPost = () => {
                 </div>
             </div>
             <span className="text-center border shadow-md drop-shadow-md mt-4 px-2 py-4 rounded-xl">
-                🏊‍🏊‍오늘 한강 수온은 {temp}도 입니다🏊‍🏊‍
+                ❄️❄️오늘 한강 수온은 {temp}도 입니다‍❄️❄️
             </span>
         </div>
     )

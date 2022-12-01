@@ -49,7 +49,7 @@ const ChartBox = ({star, setStart, data, stockName, setDay, day, searchHandler})
                 <div className="font-bold text-xl text-center bg-emerald-300 py-2 px-4 rounded-3xl mx-2">{stockName} 주가</div>
                 <select className="bg-blue-200 px-2 rounded-2xl mr-2" onChange={handlerDay} value={day}>
                     <option value={"7"}>7일</option>
-                    <option value={"30"}>한달</option>
+                    <option value={"30"}>1개월</option>
                     <option value={"180"}>6개월</option>
                     <option value={"365"}>1년</option>
                 </select>

@@ -205,6 +205,7 @@ exports.buyStock = async (req, res) => {
             const sql = 'SELECT * FROM share_code WHERE company_name = ?;';
             const sql_check_stock_exist = mysql.format(sql, [req.body.name]);
             let [rows] = await connection.query(sql_check_stock_exist);
+            console.log('test : ', req.body.amount);
             if (rows.length <= 0) {
                 await connection.rollback();
                 console.log("Error occur");
@@ -287,7 +288,6 @@ exports.sellStock = async (req, res) => {
                 await connection.query(mysql.format(sql1, [req.body.name, req.body.amount, req.body.user_id]));
                 const sql_update_history = mysql.format(SQL_NEW_HISTORY_BUY, [req.body.user_id, rows[0].share_code, '매도', rows[0].share_code, req.body.amount]);
                 await connection.query(sql_update_history);
-                console.log('여기까지했다')
                 await connection.commit();
                 res.json({success: true, msg:"success"});
                 connection.release();
