@@ -31,6 +31,7 @@ router.post('/update', CommunityController.update);
 router.post('/find-like',CommunityController.findLike);
 router.post('/add-like',CommunityController.addLike);
 router.post('/sub-like', CommunityController.subLike);
+router.get('/hot-post', CommunityController.hotPost);
 
 router.post('/admin/user', AdminController.user);
 router.delete('/admin/user-delete',AdminController.deleteUser);

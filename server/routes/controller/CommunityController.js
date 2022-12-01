@@ -3,7 +3,8 @@ const mysql = require('mysql');
 
 exports.wholePost = (req, res, next) => {
     pool.getConnection((err, conn) => {
-        conn.query('SELECT nickname, board_id, content, title, view, board_type, post_like FROM board, registered_user where board.user_id = registered_user.user_id', (err, result) => {
+        const sql1 = 'SELECT nickname, board_id, content, title, view, board_type, post_like FROM board, registered_user where board.user_id = registered_user.user_id';
+        conn.query(sql1, (err, result) => {
             if (err) {
                 console.log(err);
                 throw err;
@@ -235,5 +236,23 @@ exports.subLike = (req, res) => {
         })
 
         conn.release();
+    })
+}
+
+exports.hotPost = (req, res) => {
+    pool.getConnection((err, conn) => {
+        const sql = 'select * from board order by post_like desc limit 3';
+        conn.query(sql, (err, rows) => {
+            if (err) {
+                console.log(err);
+                res.json({success: false, data: undefined});
+            } else {
+                if (rows.length > 0) {
+                    res.json({success:true, data: rows});
+                } else {
+                    res.json({success: false, data: undefined});
+                }
+            }
+        })
     })
 }
