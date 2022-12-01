@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Link, useSearchParams} from "react-router-dom";
 
-const CategoryBar = () => {
+const CategoryBar = ({filterPost}) => {
     const [searchParams] = useSearchParams();
     const queryList = searchParams.get('board');
 
@@ -37,10 +37,10 @@ const CategoryBar = () => {
     return (
         <div className="flex justify-center col-start-3 col-span-5">
             <div className="bg-emerald-500 font-bold shadow-xl text-white gap-4 grid grid-cols-4 p-2 rounded-2xl">
-                <div id="whole-post" className="col-start-1"><Link to="/community">전체 게시판</Link></div>
-                <div id="note" className="col-start-2"><Link to="/community?board=note">공지사항</Link></div>
-                <div id="stock-post" className="col-start-3"><Link to="/community?board=stock-post">종목 토론방</Link></div>
-                <div id="post" className="col-start-4"><Link to="/community?board=post">자유 게시판</Link></div>
+                <div id="whole-post" className="col-start-1" onClick={filterPost}><Link to="/community">전체 게시판</Link></div>
+                <div id="note" className="col-start-2" onClick={filterPost}><Link to="/community?board=note">공지사항</Link></div>
+                <div id="stock-post" className="col-start-3" onClick={filterPost}><Link to="/community?board=stock-post">종목 토론방</Link></div>
+                <div id="post" className="col-start-4" onClick={filterPost}><Link to="/community?board=post">자유 게시판</Link></div>
             </div>
         </div>
     )

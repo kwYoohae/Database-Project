@@ -15,7 +15,6 @@ const HotPost = () => {
             })
         axios.get('api')
             .then((res) => {
-                // console.log(res.data);
                 setTemp(res.data.temp);
             });
     },[])
