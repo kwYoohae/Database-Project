@@ -28,7 +28,7 @@ const LoginBox = () => {
             password: password
         };
 
-        axios.post("http://localhost:3001/login", user)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+"/login", user)
             .then((res) => {
                 if (res.data.success === false) {
                     alert('아이디와 비밀번호를 다시 확인해주세요');

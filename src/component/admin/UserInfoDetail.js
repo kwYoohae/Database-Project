@@ -5,7 +5,7 @@ import axios from "axios";
 const UserInfoDetail = ({user, key, setModal, modal, setEditData, editData}) => {
 
     const deleteUser = (user_id) => {
-        axios.delete('http://localhost:3001/admin/user-delete',{data: {delete_id:user_id, user_id:JSON.parse(sessionStorage.getItem("user")).user_id}})
+        axios.delete(process.env.REACT_APP_BACKEND_SERVER+'/admin/user-delete',{data: {delete_id:user_id, user_id:JSON.parse(sessionStorage.getItem("user")).user_id}})
             .then((res) => {
                 if (res.data.success === true) {
                     alert('성공적으로 삭제되었습니다. ')

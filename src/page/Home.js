@@ -23,7 +23,6 @@ const Home = () => {
                 <TodayStock todayStockData={user.todayStock}/>
                 <ProfitRanking ranking={user.ranking}/>
                 <FavoriteBox favoriteStock={user.favorite}/>
-                {/*<PortfolioBox portfolio={user.holdingStock} portfolioValue={user.portfolioValue.value}/>*/}
             </div>
             <NewsBox news={user.news}/>
         </div>)
@@ -34,7 +33,7 @@ const Home = () => {
             if (!sessionStorage.getItem("user"))
                 return navigate('/login');
 
-            axios.post('http://localhost:3001/home', JSON.parse(sessionStorage.getItem("user")))
+            axios.post(process.env.REACT_APP_BACKEND_SERVER+'/home', JSON.parse(sessionStorage.getItem("user")))
                 .then((res) => {;
                     setUser(res.data);
                     setMoney(JSON.parse(sessionStorage.getItem("user")).cash);

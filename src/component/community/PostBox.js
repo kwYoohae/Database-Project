@@ -16,7 +16,7 @@ const PostBox = () => {
 
     useEffect(() => {
         const fetchBoardData = async () => {
-             const data = await axios.get('http://localhost:3001/board')
+             const data = await axios.get(process.env.REACT_APP_BACKEND_SERVER+'/board')
                 .then((res) => {
                     setPosts(res.data.reverse());
                     setCurrentPosts(posts.slice(indexOfFirstPost, indexOfLastPost))

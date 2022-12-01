@@ -49,7 +49,7 @@ const WriteBox = () => {
             board_type: board_type
         };
 
-        axios.post("http://localhost:3001/write",data)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+"/write",data)
             .then((res) => {
                 if(res.data.success === false) {
                     alert('게시물 생성에 실패하였습니다.');

@@ -52,7 +52,7 @@ const SignUpBox = () => {
             user_id: user_id
         }
 
-        axios.post("http://localhost:3001/check-id-duplicate", data)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+"/check-id-duplicate", data)
             .then((res) => {
                 if(res.data.duplicated === false) {
                     alert("아이디가 중복이 됩니다.");
@@ -73,7 +73,7 @@ const SignUpBox = () => {
             nickname: nickname
         };
 
-        axios.post("http://localhost:3001/check-nickname-duplicate", data)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+"/check-nickname-duplicate", data)
             .then((res) => {
                 if(res.data.duplicated === false) {
                     alert("닉네임이 중복이 됩니다.");

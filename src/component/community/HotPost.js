@@ -9,7 +9,7 @@ const HotPost = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/hot-post')
+        axios.get(process.env.REACT_APP_BACKEND_SERVER+'/hot-post')
             .then((res) => {
                 setData(res.data.data);
             })

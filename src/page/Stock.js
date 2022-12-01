@@ -27,7 +27,7 @@ const Stock = () => {
             day: day
         }
 
-        axios.post('http://localhost:3001/chart', reqData)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/chart', reqData)
             .then((res) => {
                 if (res.data.success === false) {
                     if (res.data.searchData === true) {
@@ -51,7 +51,7 @@ const Stock = () => {
             day: date
         }
 
-        axios.post('http://localhost:3001/chart', reqData)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/chart', reqData)
             .then((res) => {
                 if (res.data.success === false) {
                     if (res.data.searchData === true) {
@@ -72,7 +72,7 @@ const Stock = () => {
         if (!sessionStorage.getItem("user"))
             navigate("/login");
 
-        axios.post('http://localhost:3001/stock', {user_id: JSON.parse(sessionStorage.getItem("user")).user_id, search: search})
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/stock', {user_id: JSON.parse(sessionStorage.getItem("user")).user_id, search: search})
             .then((res) => {
                 setData(res.data);
                 setMoney(res.data.userCash.cash.cash);

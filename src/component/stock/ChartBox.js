@@ -21,14 +21,14 @@ const ChartBox = ({star, setStart, data, stockName, setDay, day, searchHandler})
             star: changedStar,
         }
         if (changedStar) {
-            axios.post('http://localhost:3001/add-star', reqData)
+            axios.post(process.env.REACT_APP_BACKEND_SERVER+'/add-star', reqData)
                 .then((res) => {
                     if (res.data.success === true) {
                         setStart(changedStar);
                     }
                 });
         } else {
-            axios.post('http://localhost:3001/sub-star', reqData)
+            axios.post(process.env.REACT_APP_BACKEND_SERVER+'/sub-star', reqData)
                 .then((res) => {
                     if (res.data.success === true) {
                         setStart(changedStar);

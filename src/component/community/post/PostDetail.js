@@ -28,7 +28,7 @@ const PostDetail = ({board_id, data}) => {
             comment: newComment
         };
 
-        axios.post('http://localhost:3001/comment',reqComment)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/comment',reqComment)
             .then((res) => {
                if (res.data.success === true) {
                    alert('댓글 작성에 성공했습니다.');

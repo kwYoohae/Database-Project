@@ -25,7 +25,7 @@ const CompanyModal = ({modal, setModal, editData, setEditData}) => {
 
         const data = {user_id:JSON.parse(sessionStorage.getItem("user")).user_id, stock_code:editData.stock_code, name:name, sector:sector, info:info};
 
-        axios.post('http://localhost:3001/admin/company-update', data)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/admin/company-update', data)
             .then((res) => {
                 if (res.data.success === true) {
                     alert('성공적으로 변경되었습니다. ');

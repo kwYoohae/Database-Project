@@ -13,7 +13,7 @@ const CommunityUpdate = () => {
         if(!sessionStorage.getItem("user"))
             navigate("/login");
         const req = {board_id: parseInt(board_id)};
-        axios.post('http://localhost:3001/post', req)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/post', req)
             .then((res) => {
                 console.log(res.data);
                 setData(res.data);

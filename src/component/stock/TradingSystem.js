@@ -31,7 +31,7 @@ const TradingSystemBox = () => {
             name: name
         }
 
-        axios.post('http://localhost:3001/buy-stock', reqData)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/buy-stock', reqData)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.success === false) {
@@ -68,7 +68,7 @@ const TradingSystemBox = () => {
             name: name
         }
 
-        axios.post('http://localhost:3001/sell-stock', reqData)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/sell-stock', reqData)
             .then((res) => {
                 console.log(res.data);
                 if (res.data.success === false) {

@@ -49,7 +49,7 @@ const CompanyInsert = () => {
             sector: sector,
             company_info: info
         }
-        axios.post('http://localhost:3001/admin/company-insert', company)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/admin/company-insert', company)
             .then((res) => {
                 if (res.data.success === true) {
                     alert('회사 생성에 성공하셨습니다.');

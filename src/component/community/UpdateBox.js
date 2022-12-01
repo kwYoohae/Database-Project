@@ -51,7 +51,7 @@ const UpdateBox = ({data, board_id}) => {
             board_id: board_id
         };
         if (user_id === data.board[0].user_id || user_id === 'admin') {
-            axios.post("http://localhost:3001/update",req_data)
+            axios.post(process.env.REACT_APP_BACKEND_SERVER+"/update",req_data)
                 .then((res) => {
                     if(res.data.success === false) {
                         alert('게시물 생성에 실패하였습니다.');

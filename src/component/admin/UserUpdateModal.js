@@ -29,7 +29,7 @@ const UserUpdateModal = ({modal, setModal, editData, setEditData}) => {
 
         const data = {user_id:JSON.parse(sessionStorage.getItem("user")).user_id, change_id:editData.user_id, password:password, nickname:nickname, age:age, cash:cash};
 
-        axios.post('http://localhost:3001/admin/user-update', data)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/admin/user-update', data)
             .then((res) => {
                 if (res.data.success === true) {
                     alert('성공적으로 변경되었습니다. ');

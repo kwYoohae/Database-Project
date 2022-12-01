@@ -5,7 +5,7 @@ import axios from "axios";
 const CompanyInfoDetail = ({company, key, setModal, modal, setEditData, editData}) => {
 
     const deleteCompany = (stock_code) => {
-        axios.delete('http://localhost:3001/admin/company-delete',{data: {delete_id:stock_code, user_id:JSON.parse(sessionStorage.getItem("user")).user_id}})
+        axios.delete(process.env.REACT_APP_BACKEND_SERVER+'/admin/company-delete',{data: {delete_id:stock_code, user_id:JSON.parse(sessionStorage.getItem("user")).user_id}})
             .then((res) => {
                 if (res.data.success === true) {
                     alert('성공적으로 삭제되었습니다. ')

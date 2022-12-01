@@ -14,9 +14,9 @@ const CommunityPost = () => {
         if(!sessionStorage.getItem("user"))
             navigate("/login");
         const req = {board_id: parseInt(boardId)};
-        const url = 'http://localhost:3001/view/' +boardId;
+        const url = process.env.REACT_APP_BACKEND_SERVER+'/view/' +boardId;
         axios.get(url);
-        axios.post('http://localhost:3001/post',req)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/post',req)
             .then((res) => {
                 if (res.data.success === true) {
                     console.log(res.data);

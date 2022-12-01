@@ -23,12 +23,12 @@ const Admin = () => {
         }
 
         const user_id = {user_id: JSON.parse(sessionStorage.getItem("user")).user_id};
-        axios.post('http://localhost:3001/admin/user', user_id)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/admin/user', user_id)
             .then((res) => {
                 setUser(res.data.user_data)
             })
 
-        axios.post('http://localhost:3001/admin/company', user_id)
+        axios.post(process.env.REACT_APP_BACKEND_SERVER+'/admin/company', user_id)
             .then((res) => {
                 setCompany(res.data.company)
             })
