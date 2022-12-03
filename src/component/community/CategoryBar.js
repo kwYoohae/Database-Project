@@ -11,17 +11,17 @@ const CategoryBar = ({filterPost}) => {
         let stockPost = document.getElementById("stock-post");
         let post = document.getElementById("post");
 
-        if (queryList === 'note') {
+        if (queryList === '공지사항') {
             wholePost.style.color = "black";
             note.style.color = "white";
             stockPost.style.color = "black";
             post.style.color = "black";
-        } else if (queryList === 'stock-post') {
+        } else if (queryList === '종목토론방') {
             wholePost.style.color = "black";
             note.style.color = "black";
             stockPost.style.color = "white";
             post.style.color = "black";
-        } else if (queryList === 'post') {
+        } else if (queryList === '자유게시판') {
             wholePost.style.color = "black";
             note.style.color = "black";
             stockPost.style.color = "black";
@@ -38,9 +38,9 @@ const CategoryBar = ({filterPost}) => {
         <div className="flex justify-center col-start-3 col-span-5">
             <div className="bg-emerald-500 font-bold shadow-xl text-white gap-4 grid grid-cols-4 p-2 rounded-2xl">
                 <div id="whole-post" className="col-start-1" onClick={filterPost}><Link to="/community">전체 게시판</Link></div>
-                <div id="note" className="col-start-2" onClick={filterPost}><Link to="/community?board=note">공지사항</Link></div>
-                <div id="stock-post" className="col-start-3" onClick={filterPost}><Link to="/community?board=stock-post">종목 토론방</Link></div>
-                <div id="post" className="col-start-4" onClick={filterPost}><Link to="/community?board=post">자유 게시판</Link></div>
+                <div id="note" className="col-start-2" onClick={filterPost}><Link to="/community?board=공지사항">공지사항</Link></div>
+                <div id="stock-post" className="col-start-3" onClick={filterPost}><Link to="/community?board=종목토론방">종목 토론방</Link></div>
+                <div id="post" className="col-start-4" onClick={filterPost}><Link to="/community?board=자유게시판">자유 게시판</Link></div>
             </div>
         </div>
     )

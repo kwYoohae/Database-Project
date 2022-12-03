@@ -4,11 +4,11 @@ import {Link} from "react-router-dom";
 const Post = ({key, list}) => {
 
     const checkBoardType = (data) => {
-        if (data === 'note') {
+        if (data === '공지사항') {
             return <span className="text-red-500">공지사항을</span>;
-        } else if (data === 'stock-post') {
+        } else if (data === '종목토론방') {
             return "종목 토론방에";
-        } else if (data === 'post') {
+        } else if (data === '자유게시판') {
             return "자유 게시판에";
         }
     }
