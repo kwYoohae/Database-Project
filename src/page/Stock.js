@@ -8,6 +8,7 @@ import ChartBox from "../component/stock/ChartBox";
 import TradingSystem from "../component/stock/TradingSystem";
 import TradingHistoryBox from "../component/stock/tradingHistory/TradingHistoryBox";
 import PortfolioBox from "../component/stock/portfolio/PortfolioBox";
+import ViewBox from "../component/stock/view/ViewBox";
 
 const Stock = () => {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Stock = () => {
 
     const [search, setSearch] = useState("삼성전자");
     const [day, setDay] = useState("7");
+    const [viewData, setView] = useState([]);
 
     const searchHandler = (e) => {
         console.log("들어왔심다 : ", day);
@@ -26,7 +28,6 @@ const Stock = () => {
             name: search,
             day: day
         }
-
         axios.post(process.env.REACT_APP_BACKEND_SERVER+'/chart', reqData)
             .then((res) => {
                 if (res.data.success === false) {
@@ -39,8 +40,11 @@ const Stock = () => {
                     setName(res.data.stock_name);
                     setChartData(res.data.chart_data.reverse());
                     setStar(res.data.isFavorite);
-                    console.log(chartData);
                 }
+            });
+        axios.post(process.env.REACT_APP_BACKEND_SERVER + '/search-data', {name: search})
+            .then((res)=>{
+                setView(res.data.views);
             });
     }
 
@@ -50,7 +54,6 @@ const Stock = () => {
             name: search,
             day: date
         }
-
         axios.post(process.env.REACT_APP_BACKEND_SERVER+'/chart', reqData)
             .then((res) => {
                 if (res.data.success === false) {
@@ -62,7 +65,6 @@ const Stock = () => {
                 } else {
                     setName(res.data.stock_name);
                     setChartData(res.data.chart_data.reverse());
-                    console.log("start : ", res.data.isFavorite);
                     setStar(res.data.isFavorite);
                 }
             });
@@ -86,6 +88,7 @@ const Stock = () => {
                 });
                 setStar(res.data.star);
                 setChartData(temp);
+                setView(res.data.views);
             }).catch((error) => {
             console.log(error);
         });
@@ -107,8 +110,9 @@ const Stock = () => {
                 <TradingHistoryBox historyData={data.tradingHistory}/>
                 <TradingSystem/>
             </div>
-            <div className="flex flex-row mt-10 ml-24 mb-20">
+            <div className="flex justify-center mt-10 mb-20">
                 <PortfolioBox portfolio={data.holdingStock} portfolioValue={data.holdingStockValue.value}/>
+                <ViewBox data={viewData}/>
             </div>
         </div>)
     }

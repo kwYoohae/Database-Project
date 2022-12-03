@@ -20,6 +20,7 @@ router.post('/add-star', StockController.addStar);
 router.post('/sub-star', StockController.subStar);
 router.post('/buy-stock',StockController.buyStock);
 router.post('/sell-stock', StockController.sellStock);
+router.post('/search-data', StockController.searchData);
 
 router.get('/board', CommunityController.wholePost);
 router.post('/write', CommunityController.write);

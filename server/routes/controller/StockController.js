@@ -27,6 +27,7 @@ const SQL_CHANGE_HOLDING_STOCK_NUMBER = 'update holding_stock, share_code set sh
 const SQL_NEW_HOLDING_STOCK = 'insert into holding_stock(share_code, user_id, share_amount, share_average_price, favorite) values(?, ?, ?, (select closing_price from share_price sp, share_code sc where sc.share_code = sp.share_code and company_name = ? order by market_date desc limit 1), 0);';
 const SQL_NEW_HISTORY_BUY = 'insert into trading_history(user_id,share_code,trading_date,trading_type,share_price,share_amount) values(?,?,date_format(now(),\'%Y-%m-%d %H:%i:%s\'),?,(select closing_price from share_price where share_code=? order by market_date desc limit 1),?);';
 const SQL_SELL_AMOUNT = 'select hs.share_code ,hs.share_amount from share_code sc, holding_stock hs where sc.company_name=? and sc.share_code=hs.share_code and hs.user_id=?;';
+const SQL_VIEW_DATA = 'select * from share_code order by views DESC limit 5;';
 exports.pageIn = (req, res) => {
 
     pool.getConnection((err, conn) => {
@@ -37,13 +38,14 @@ exports.pageIn = (req, res) => {
         const sql_holding_stock = mysql.format(SQL_HOLDING_STOCK, req.body.user_id);
         const sql_holding_stock_money = mysql.format(SQL_HOLDING_STOCK_MONEY, req.body.user_id);
         console.log(req.body);
-        conn.query(sql_money + sql_stock_day + sql_buy_or_sell + sql_find_star + sql_holding_stock + sql_holding_stock_money, (err, rows) => {
+        conn.query(sql_money + sql_stock_day + sql_buy_or_sell + sql_find_star + sql_holding_stock + sql_holding_stock_money + SQL_VIEW_DATA, (err, rows) => {
             let userCash = {};
             let sharePrice = [];
             let tradingHistory = [];
             let holdingStock = [];
             let holdingStockValue = {};
             let star = false;
+            let view = [];
             if (rows[0].length > 0) {
                 userCash = {cash: rows[0][0]};
             }
@@ -98,13 +100,26 @@ exports.pageIn = (req, res) => {
                 holdingStockValue = {value: rows[5][0].value};
             }
 
+            if (rows[6].length > 0) {
+                for (let i = 0; i < rows[6].length; i++) {
+                    let temp = {
+                        share_code: rows[6][i].share_code,
+                        company_name: rows[6][i].company_name,
+                        views: rows[6][i].views,
+                        sector: rows[6][i].sector,
+                    }
+                    view.push(temp);
+                }
+            }
+
             let out = {
                 userCash: userCash,
                 sharePrice: sharePrice,
                 tradingHistory: tradingHistory,
                 holdingStock: holdingStock,
                 holdingStockValue: holdingStockValue,
-                star: star
+                star: star,
+                views: view
             }
 
             console.log(out);
@@ -309,4 +324,28 @@ exports.sellStock = async (req, res) => {
         console.log(e);
         return false;
     }
+}
+
+exports.searchData = (req, res, next) => {
+    pool.getConnection((err, conn) => {
+        console.log('들어옴');
+        const sql = 'UPDATE share_code set views = views + 1 where company_name = ?;';
+        const updateViews = mysql.format(sql, req.body.name);
+        console.log(updateViews);
+        conn.query(updateViews + SQL_VIEW_DATA, (err, rows) => {
+            let view = [];
+            if (rows[1].length > 0) {
+                for (let i = 0; i < rows[1].length; i++) {
+                    let temp = {
+                        share_code: rows[1][i].share_code,
+                        company_name: rows[1][i].company_name,
+                        views: rows[1][i].views,
+                        sector: rows[1][i].sector,
+                    }
+                    view.push(temp);
+                }
+            }
+            res.json({views: view});
+        });
+    })
 }
