@@ -3,7 +3,7 @@ const mysql = require('mysql');
 
 exports.wholePost = (req, res, next) => {
     pool.getConnection((err, conn) => {
-        const sql1 = 'SELECT nickname, board_id, content, title, view, board_type, post_like FROM board, registered_user where board.user_id = registered_user.user_id';
+        const sql1 = 'SELECT nickname, board_id, content, title, view, board_type, post_like, stock_type FROM board, registered_user where board.user_id = registered_user.user_id';
         conn.query(sql1, (err, result) => {
             if (err) {
                 console.log(err);
@@ -20,7 +20,8 @@ exports.wholePost = (req, res, next) => {
                         content: result[i].content,
                         view: result[i].view,
                         post_like: result[i].post_like,
-                        board_type: result[i].board_type
+                        board_type: result[i].board_type,
+                        stock_type: result[i].stock_type
                     }
                     data.push(stock);
                 }
@@ -33,9 +34,9 @@ exports.wholePost = (req, res, next) => {
 
 exports.write = (req, res, next) => {
     pool.getConnection((err, conn) => {
-        const query = 'INSERT INTO board(user_id, created_at, modified_at, content, post_like, title, view, board_type)\n' +
-            'VALUES ( ? , now(), now(), ? , 0, ? , 0, ?);';
-        const params = [req.body.user_id, req.body.content, req.body.title, req.body.board_type];
+        const query = 'INSERT INTO board(user_id, created_at, modified_at, content, post_like, title, view, board_type, stock_type)\n' +
+            'VALUES ( ? , now(), now(), ? , 0, ? , 0, ?, ?);';
+        const params = [req.body.user_id, req.body.content, req.body.title, req.body.board_type, req.body.stock_type];
         let sqls = mysql.format(query, params);
         conn.query(sqls, (err, result) => {
             if (err) {
@@ -51,7 +52,7 @@ exports.write = (req, res, next) => {
 
 exports.post = (req, res, next) => {
     pool.getConnection((err, conn) => {
-        const get_board_sql = 'SELECT registered_user.user_id as id, board_id, nickname, board.created_at, content, post_like, title, view, board_type FROM board, registered_user WHERE board_id = ? and registered_user.user_id = board.user_id;';
+        const get_board_sql = 'SELECT registered_user.user_id as id, board_id, nickname, board.created_at, content, post_like, title, view, board_type, stock_type FROM board, registered_user WHERE board_id = ? and registered_user.user_id = board.user_id;';
         const get_comment_sql = 'SELECT comment_id, comment.created_at, content, nickname FROM comment, registered_user WHERE board_id = ? and registered_user.user_id = comment.user_id;';
         let sql_board = mysql.format(get_board_sql, req.body.board_id);
         let sql_comment = mysql.format(get_comment_sql, req.body.board_id);
@@ -75,7 +76,8 @@ exports.post = (req, res, next) => {
                         post_like: rows[0][i].post_like,
                         title: rows[0][i].title,
                         view: rows[0][i].view,
-                        board_type: rows[0][i].board_type
+                        board_type: rows[0][i].board_type,
+                        stock_type: rows[0][i].stock_type
                     }
                     board.push(data);
                 }
@@ -154,8 +156,8 @@ exports.deletePost = (req, res) => {
 
 exports.update = (req, res) => {
     pool.getConnection((err, conn) => {
-        const sql1 = 'UPDATE board SET modified_at = now(), content = ?, title = ?, board_type = ? WHERE board_id =?;';
-        const param = [req.body.content, req.body.title, req.body.board_type, req.body.board_id];
+        const sql1 = 'UPDATE board SET modified_at = now(), content = ?, title = ?, board_type = ?, stock_type=? WHERE board_id =?;';
+        const param = [req.body.content, req.body.title, req.body.board_type, req.body.board_id, req.body.stock_type];
         const update_board = mysql.format(sql1, param);
 
         conn.query(update_board, (err, rows) =>{

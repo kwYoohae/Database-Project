@@ -7,6 +7,7 @@ const WriteBox = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [board_type, setBoardType] = useState("");
+    const [stock_type, setStockType] = useState("none");
 
     const navigate = useNavigate();
 
@@ -20,6 +21,10 @@ const WriteBox = () => {
 
     const handleContent = (e) => {
         setContent(e.target.value);
+    }
+
+    const onStockChange = (e) => {
+        setStockType(e.target.value);
     }
 
     const submitPost = (e) => {
@@ -46,7 +51,8 @@ const WriteBox = () => {
             user_id: JSON.parse(sessionStorage.getItem("user")).user_id,
             title: title,
             content: content,
-            board_type: board_type
+            board_type: board_type,
+            stock_type: stock_type,
         };
 
         axios.post(process.env.REACT_APP_BACKEND_SERVER+"/write",data)
@@ -63,7 +69,7 @@ const WriteBox = () => {
 
     return (
         <div className="border mt-20 shadow-2xl drop-shadow-md rounded-2xl bg-gray-50"
-             style={{height: "680px", width: "700px"}}>
+             style={{height: "780px", width: "700px"}}>
             <div className="flex flex-col">
                 <div className="flex justify-center">
                     <span
@@ -79,6 +85,9 @@ const WriteBox = () => {
                             );
                         })}
                     </select>
+                    {
+                        board_type === "종목토론방" ? <input className="block mx-auto mt-4 p-2 rounded-2xl" placeholder="종목을 입력해주세요" onChange={onStockChange} /> : <></>
+                    }
                     <div className="flex justify-center flex-col">
                         <input className="flex pl-2 py-2 rounded-2xl pr-30 mx-10 mt-3" onChange={handleTitle} placeholder="게시물 제목을 입력해주세요"/>
                         <textarea className="flex mt-6 mx-10 h-96 p-2 rounded-2xl" onChange={handleContent} placeholder="내용을 입력해주세요"/>
