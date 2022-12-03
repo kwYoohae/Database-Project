@@ -38,13 +38,13 @@ const Stock = () => {
                 } else {
                     setName(res.data.stock_name);
                     setChartData(res.data.chart_data.reverse());
+                    setStar(res.data.isFavorite);
                     console.log(chartData);
                 }
             });
     }
 
     const searchForDayHandler = (date) => {
-        console.log("들어왔심다 : ", date);
         const reqData = {
             user_id: JSON.parse(sessionStorage.getItem("user")).user_id,
             name: search,
@@ -62,8 +62,8 @@ const Stock = () => {
                 } else {
                     setName(res.data.stock_name);
                     setChartData(res.data.chart_data.reverse());
+                    console.log("start : ", res.data.isFavorite);
                     setStar(res.data.isFavorite);
-                    console.log(chartData);
                 }
             });
     }

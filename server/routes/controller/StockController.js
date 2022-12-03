@@ -119,9 +119,8 @@ exports.chart = (req, res) => {
         const param = [req.body.name, parseInt(req.body.day)];
         const sql_chart = mysql.format(SQL_STOCK_DAY_FOR_NAME, param);
 
-        const sql1 = 'SELECT * FROM holding_stock, share_code WHERE user_id = ? and company_name = ? and holding_stock.share_code = share_code.share_code;';
+        const sql1 = 'SELECT * FROM favorite, share_code WHERE user_id = ? and company_name = ? and favorite.share_code = share_code.share_code;';
         const findFavorite = mysql.format(sql1, [req.body.user_id, req.body.name]);
-
         conn.query(sql_chart + findFavorite, (err, rows) => {
             let chartData = [];
             let isSuccess = false;
@@ -145,6 +144,7 @@ exports.chart = (req, res) => {
             }
 
             if (rows[1].length > 0) {
+                console.log("favorite : ", rows[1][0]);
                 if (rows[1][0].favorite === 1) {
                     isFavorite = true;
                 } else {
