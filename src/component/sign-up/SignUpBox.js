@@ -88,15 +88,6 @@ const SignUpBox = () => {
         e.preventDefault();
         console.log('id : ', duplicatedId);
         console.log('name : ', duplicatedName);
-        if(!duplicatedId) {
-            alert("아이디 중복확인을 안하셨습니다!");
-            return;
-        }
-
-        if(!duplicatedName) {
-            alert("닉네임 중복확인을 안하셨습니다!");
-            return;
-        }
 
         if(user_id.trim() == "") {
             alert("아이디를 입력하셔야합니다.");
@@ -117,7 +108,15 @@ const SignUpBox = () => {
             alert("나이를 입력하셔야합니다.");
             return;
         }
+        if(!duplicatedId) {
+            alert("아이디 중복확인을 안하셨습니다!");
+            return;
+        }
 
+        if(!duplicatedName) {
+            alert("닉네임 중복확인을 안하셨습니다!");
+            return;
+        }
 
         if(password !== passwordConfirm) {
             alert("비밀번호 확인의 값을 제대로 입력하지 않으셨습니다.");

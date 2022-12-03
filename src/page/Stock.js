@@ -25,6 +25,7 @@ const Stock = () => {
     const searchHandler = (e) => {
         console.log("들어왔심다 : ", day);
         const reqData = {
+            user_id: JSON.parse(sessionStorage.getItem("user")).user_id,
             name: search,
             day: day
         }
@@ -41,10 +42,6 @@ const Stock = () => {
                     setChartData(res.data.chart_data.reverse());
                     setStar(res.data.isFavorite);
                 }
-            });
-        axios.post(process.env.REACT_APP_BACKEND_SERVER + '/search-data', {name: search})
-            .then((res)=>{
-                setView(res.data.views);
             });
     }
 
@@ -100,7 +97,7 @@ const Stock = () => {
         }
         return (<div className="flex flex-col">
             <div className="flex flex-row mx-auto">
-                <SearchBar setSearch={setSearch} searchHandler={searchHandler}/>
+                <SearchBar setSearch={setSearch} searchHandler={searchHandler} setView={setView} serach={search}/>
                 <MyMoney userMoney={money}/>
             </div>
             <div className="mt-10 flex flex-row mx-auto">

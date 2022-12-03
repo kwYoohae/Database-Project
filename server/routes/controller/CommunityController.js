@@ -157,9 +157,9 @@ exports.deletePost = (req, res) => {
 exports.update = (req, res) => {
     pool.getConnection((err, conn) => {
         const sql1 = 'UPDATE board SET modified_at = now(), content = ?, title = ?, board_type = ?, stock_type=? WHERE board_id =?;';
-        const param = [req.body.content, req.body.title, req.body.board_type, req.body.board_id, req.body.stock_type];
+        const param = [req.body.content, req.body.title, req.body.board_type, req.body.stock_type, req.body.board_id];
         const update_board = mysql.format(sql1, param);
-
+        console.log(update_board)
         conn.query(update_board, (err, rows) =>{
             if (err) {
                 console.log(err);

@@ -92,7 +92,7 @@ const UpdateBox = ({data, board_id}) => {
                         })}
                     </select>
                     {
-                        board_type === "종목토론방" ? <input className="block mx-auto mt-4 p-2 rounded-2xl" placeholder="종목을 입력해주세요" onChange={onStockChange} /> : <></>
+                        board_type === "종목토론방" ? <input className="block mx-auto mt-4 p-2 rounded-2xl" placeholder="종목을 입력해주세요" value={stock_type} onChange={onStockChange} /> : <></>
                     }
                     <div className="flex justify-center flex-col">
                         <input className="flex pl-2 py-2 rounded-2xl pr-30 mx-10 mt-3" value={title} onChange={handleTitle} placeholder="게시물 제목을 입력해주세요"/>

@@ -3,7 +3,7 @@ import StockChart from "./StockChart";
 import {Star, StarBorder} from "@mui/icons-material";
 import axios from "axios";
 
-const ChartBox = ({star, setStart, data, stockName, setDay, day, searchHandler}) => {
+const ChartBox = ({star, setStart, data, stockName, setDay, day, searchHandler, setView}) => {
     const handlerDay = (e) => {
         console.log(e.target.value);
         setDay(e.target.value);

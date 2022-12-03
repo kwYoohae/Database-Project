@@ -62,9 +62,9 @@ const Header = () => {
                 <div className={"flex-row table-cell"}>
                     <span id="home" className="text-2xl font-bold align-middle mx-3"><Link to="/">홈화면</Link></span>
                     <span id="stock" className="text-2xl font-bold align-middle mx-3"><Link to="/stock">주식 구매</Link></span>
-                    <span id="community" className="text-2xl font-bold align-middle ml-3 mr-20"><Link to="/community">커뮤니티</Link></span>
-                    {!sessionStorage.getItem("user") ? <></> : JSON.parse(sessionStorage.getItem("user")).user_id === 'admin' ? <span id="admin" className="text-2xl font-bold align-middle mx-3"><Link to="/admin">어드민</Link></span>
-                    : <></>}
+                    <span id="community" className="text-2xl font-bold align-middle ml-3"><Link to="/community">커뮤니티</Link></span>
+                    {!sessionStorage.getItem("user") ? <></> : JSON.parse(sessionStorage.getItem("user")).user_id === 'admin' ? <span id="admin" className="text-2xl font-bold align-middle mx-3 mr-20"><Link to="/admin">어드민</Link></span>
+                    : <span className="mr-20"></span>}
                 </div>
             </div>
         </div>
